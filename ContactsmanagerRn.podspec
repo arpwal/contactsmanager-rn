@@ -18,27 +18,41 @@ Pod::Spec.new do |s|
 
   # Ensure the framework is properly embedded
   s.static_framework = true
-  s.vendored_frameworks = 'ios/Frameworks/ContactsManagerObjc.xcframework'
+  s.vendored_frameworks = ['ios/Frameworks/ContactsManagerObjc.xcframework']
 
   # Prepare the framework for use
   s.prepare_command = <<-CMD
     cd #{File.dirname(__FILE__)}
-    if [ -e "./sign_framework.sh" ]; then
-      echo "Signing framework for ContactsManagerObjc..."
-      chmod +x ./sign_framework.sh
-      ./sign_framework.sh
+
+    # Make sure the Frameworks directory exists
+    mkdir -p ios/Frameworks
+
+    # Check if framework needs fixing
+    if [ -e "./fix_xcframework.sh" ]; then
+      echo "Fixing framework for ContactsManagerObjc..."
+      chmod +x ./fix_xcframework.sh
+      ./fix_xcframework.sh
+    fi
+
+    # Make sure binaries are executable
+    if [ -d "ios/Frameworks/ContactsManagerObjc.xcframework/ios-arm64/ContactsManagerObjc.framework" ]; then
+      chmod +x ios/Frameworks/ContactsManagerObjc.xcframework/ios-arm64/ContactsManagerObjc.framework/ContactsManagerObjc
+    fi
+
+    if [ -d "ios/Frameworks/ContactsManagerObjc.xcframework/ios-arm64_x86_64-simulator/ContactsManagerObjc.framework" ]; then
+      chmod +x ios/Frameworks/ContactsManagerObjc.xcframework/ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc
     fi
   CMD
 
   s.pod_target_xcconfig = {
-    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks $(PODS_ROOT)/../..',
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks $(PODS_ROOT)/../.. $(PODS_ROOT)/../../node_modules/contactsmanager-rn/ios/Frameworks',
     'OTHER_LDFLAGS' => '$(inherited) -framework ContactsManagerObjc',
     'ENABLE_BITCODE' => 'NO',
     'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
   }
 
   s.user_target_xcconfig = {
-    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks'
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks $(PODS_ROOT)/../../node_modules/contactsmanager-rn/ios/Frameworks'
   }
 
   # If your framework depends on system frameworks, add them:

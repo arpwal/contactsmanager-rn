@@ -12,7 +12,7 @@ yarn add contactsmanager-rn
 
 ## iOS Setup
 
-This module depends on the `ContactsManagerObjc.xcframework`. Make sure it's properly integrated into your project by following these steps:
+This module includes the `ContactsManagerObjc.xcframework` which is automatically integrated into your project when you install it.
 
 ### 1. Install CocoaPods dependencies
 
@@ -20,32 +20,32 @@ This module depends on the `ContactsManagerObjc.xcframework`. Make sure it's pro
 cd ios && pod install && cd ..
 ```
 
-### 2. Verify framework location
+That's it! The XCFramework should be automatically linked and ready to use.
 
-The framework should be located in one of these paths:
+### Troubleshooting
+
+If you encounter any issues with the framework installation:
+
+#### Option 1: Verify framework location
+
+The framework should be automatically installed in:
 
 - `node_modules/contactsmanager-rn/ios/Frameworks/ContactsManagerObjc.xcframework`
-- `ios-objc/ContactsManagerObjc.xcframework`
 
-If it's not found, you'll need to manually copy it to one of these locations.
+#### Option 2: Manual framework fix
 
-### 3. Fix framework linking (if needed)
-
-If you encounter linking issues with the framework, you can run our fix script:
+If you're experiencing issues with the framework, you can run our fix script:
 
 ```sh
 cd ios
-# Make the script executable
-chmod +x ../node_modules/contactsmanager-rn/example/ios/fix_framework_linking.sh
-# Run the script
-../node_modules/contactsmanager-rn/example/ios/fix_framework_linking.sh
-# Install pods again
+chmod +x ../node_modules/contactsmanager-rn/fix_xcframework.sh
+../node_modules/contactsmanager-rn/fix_xcframework.sh
 pod install
 ```
 
-### 4. Manually link in Xcode (if still having issues)
+#### Option 3: Manual Xcode linking
 
-If you're still having issues, you can manually add the framework in Xcode:
+As a last resort, you can manually add the framework in Xcode:
 
 1. Open your project in Xcode
 2. Select your target's "General" settings tab
