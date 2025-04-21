@@ -25,6 +25,9 @@ try {
   if (fs.existsSync(xcframeworkPath)) {
     console.log('XCFramework found, preparing for distribution...');
 
+    // Remember the original framework existence
+    const frameworkExistedBefore = fs.existsSync(xcframeworkPath);
+
     // Fix the framework to ensure it doesn't have signing issues
     const fixScriptPath = path.join(rootDir, 'fix_xcframework.sh');
     if (fs.existsSync(fixScriptPath)) {
@@ -33,6 +36,14 @@ try {
         execSync(`chmod +x ${fixScriptPath} && ${fixScriptPath}`, {
           stdio: 'inherit',
         });
+
+        // Verify the framework still exists after running the fix script
+        if (frameworkExistedBefore && !fs.existsSync(xcframeworkPath)) {
+          throw new Error(
+            'The framework was deleted during the fix process but not replaced properly.'
+          );
+        }
+
         console.log('Fixed xcframework successfully');
       } catch (error) {
         console.warn('Warning: Could not fix xcframework:', error.message);
@@ -46,6 +57,13 @@ try {
       'Warning: ContactsManagerObjc.xcframework not found in ios/Frameworks.'
     );
     console.warn('Make sure to include it before publishing the package.');
+  }
+
+  // Final check to ensure xcframework exists before proceeding
+  if (!fs.existsSync(xcframeworkPath)) {
+    throw new Error(
+      'ContactsManagerObjc.xcframework not found after preparation. Publishing aborted.'
+    );
   }
 
   console.log('Prepublish script completed successfully.');

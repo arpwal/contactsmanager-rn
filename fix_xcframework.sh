@@ -40,12 +40,18 @@ xcodebuild -create-xcframework \
     -framework "$TEMP_DIR/ios-arm64_x86_64-simulator/ContactsManagerObjc.framework" \
     -output "$XCFRAMEWORK_PATH.new"
 
-# Replace old xcframework with new one
-echo "Replacing old xcframework..."
-rm -rf "$XCFRAMEWORK_PATH"
-mv "$XCFRAMEWORK_PATH.new" "$XCFRAMEWORK_PATH"
+# Check if new xcframework was created successfully
+if [ -d "$XCFRAMEWORK_PATH.new" ]; then
+    # Replace old xcframework with new one
+    echo "Replacing old xcframework..."
+    rm -rf "$XCFRAMEWORK_PATH"
+    mv "$XCFRAMEWORK_PATH.new" "$XCFRAMEWORK_PATH"
+    echo "XCFramework successfully fixed!"
+else
+    echo "Error: Failed to create new xcframework. Keeping original framework."
+    # Clean up any partial new framework
+    rm -rf "$XCFRAMEWORK_PATH.new"
+fi
 
 # Clean up
 rm -rf "$TEMP_DIR"
-
-echo "XCFramework successfully fixed!"

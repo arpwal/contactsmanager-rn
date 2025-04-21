@@ -14,9 +14,9 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}Preparing to publish contactsmanager-rn to npm...${NC}"
 
 # Check that we have the xcframework
-if [ ! -d "ios/Frameworks/ContactsManagerObjc.xcframework" ]; then
-  echo -e "${RED}Error: ContactsManagerObjc.xcframework not found!${NC}"
-  echo -e "Make sure the framework is in ios/Frameworks/ContactsManagerObjc.xcframework"
+if [ ! -d "ios/Frameworks" ] || [ -z "$(ls -A ios/Frameworks 2>/dev/null)" ]; then
+  echo -e "${RED}Error: No frameworks found in ios/Frameworks directory!${NC}"
+  echo -e "Make sure at least one framework is present in the ios/Frameworks directory"
   exit 1
 fi
 
