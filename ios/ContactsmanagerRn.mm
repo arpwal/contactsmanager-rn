@@ -1,4 +1,5 @@
 #import "ContactsmanagerRn.h"
+#import <ContactsManagerObjc/ContactsManagerObjc.h>
 
 @implementation ContactsmanagerRn
 RCT_EXPORT_MODULE()
@@ -18,11 +19,31 @@ RCT_EXPORT_METHOD(multiply:(double)a
 RCT_EXPORT_METHOD(requestContactsAccess:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
+    // Add debug logging
+    NSLog(@"ContactsmanagerRn: requestContactsAccess called");
+
+    Class authServiceClass = NSClassFromString(@"ContactsAuthorizationService");
+    if (!authServiceClass) {
+        NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class not found!");
+        NSDictionary *response = @{
+            @"granted": @(NO),
+            @"status": @(0),
+            @"error": @"ContactsAuthorizationService class not found"
+        };
+        resolve(response);
+        return;
+    }
+
+    NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class found");
+
     [[ContactsAuthorizationService sharedInstance] requestAccessWithCompletion:^(ContactsAccessStatus status, NSError * _Nullable error) {
         if (error) {
+            NSLog(@"ContactsmanagerRn: Error requesting contacts access: %@", error);
             reject(@"contacts_permission_error", @"Failed to request contacts permission", error);
             return;
         }
+
+        NSLog(@"ContactsmanagerRn: Access status: %ld", (long)status);
 
         BOOL granted = (status == ContactsAccessStatusAuthorized || status == ContactsAccessStatusLimitedAuthorized);
         NSDictionary *response = @{
@@ -36,8 +57,20 @@ RCT_EXPORT_METHOD(requestContactsAccess:(RCTPromiseResolveBlock)resolve
 RCT_EXPORT_METHOD(getContacts:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
+    // Add debug logging
+    NSLog(@"ContactsmanagerRn: getContacts called");
+
+    Class authServiceClass = NSClassFromString(@"ContactsAuthorizationService");
+    if (!authServiceClass) {
+        NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class not found!");
+        reject(@"contacts_manager_error", @"ContactsAuthorizationService class not found", nil);
+        return;
+    }
+
     ContactsAccessStatus accessStatus = [[ContactsAuthorizationService sharedInstance] checkAccessStatus];
     BOOL hasPermission = (accessStatus == ContactsAccessStatusAuthorized || accessStatus == ContactsAccessStatusLimitedAuthorized);
+
+    NSLog(@"ContactsmanagerRn: Access status for getContacts: %ld", (long)accessStatus);
 
     if (!hasPermission) {
         reject(@"contacts_permission_denied", @"Contacts permission not granted", nil);

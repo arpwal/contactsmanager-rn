@@ -6,6 +6,10 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
+// Add debug logging
+console.log('Available NativeModules:', Object.keys(NativeModules));
+console.log('ContactsmanagerRn module:', NativeModules.ContactsmanagerRn);
+
 const ContactsmanagerRn = NativeModules.ContactsmanagerRn
   ? NativeModules.ContactsmanagerRn
   : new Proxy(

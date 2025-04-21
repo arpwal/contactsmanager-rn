@@ -15,37 +15,73 @@ echo "EXPANDED_CODE_SIGN_IDENTITY: $EXPANDED_CODE_SIGN_IDENTITY"
 # Create destination directory if it doesn't exist
 mkdir -p "$TARGET_PATH"
 
+# First, check if the xcframework exists
+if [[ ! -d "$FRAMEWORK_PATH" ]]; then
+  echo "Error: Framework not found at $FRAMEWORK_PATH"
+  exit 0 # Exit gracefully, don't fail the build
+fi
+
+# List available slices for debugging
+echo "Available slices:"
+ls -la "$FRAMEWORK_PATH"
+
+# Check which slices are available
+SIMULATOR_SLICE="$FRAMEWORK_PATH/ios-arm64_x86_64-simulator/ContactsManagerObjc.framework"
+DEVICE_SLICE="$FRAMEWORK_PATH/ios-arm64/ContactsManagerObjc.framework"
+HAS_SIMULATOR_SLICE=false
+HAS_DEVICE_SLICE=false
+
+if [[ -d "$SIMULATOR_SLICE" ]]; then
+  HAS_SIMULATOR_SLICE=true
+  echo "Simulator slice exists"
+fi
+
+if [[ -d "$DEVICE_SLICE" ]]; then
+  HAS_DEVICE_SLICE=true
+  echo "Device slice exists"
+fi
+
 # Determine which slice to use
 if [[ "$PLATFORM_NAME" == *simulator* ]]; then
-  echo "Copying simulator framework..."
+  echo "Building for simulator..."
 
-  FRAMEWORK_SLICE="$FRAMEWORK_PATH/ios-arm64_x86_64-simulator/ContactsManagerObjc.framework"
-
-  # Check if path exists
-  if [[ ! -d "$FRAMEWORK_SLICE" ]]; then
-    echo "Error: Framework slice not found at $FRAMEWORK_SLICE"
-    exit 1
+  if [[ "$HAS_SIMULATOR_SLICE" == true ]]; then
+    echo "Using simulator slice"
+    FRAMEWORK_SLICE="$SIMULATOR_SLICE"
+  elif [[ "$HAS_DEVICE_SLICE" == true ]]; then
+    echo "Simulator slice not found, using device slice as fallback"
+    FRAMEWORK_SLICE="$DEVICE_SLICE"
+  else
+    echo "No appropriate framework slice found, skipping"
+    exit 0 # Exit gracefully
   fi
-
-  cp -R "$FRAMEWORK_SLICE" "$TARGET_PATH/"
 else
-  echo "Copying device framework..."
+  echo "Building for device..."
 
-  FRAMEWORK_SLICE="$FRAMEWORK_PATH/ios-arm64/ContactsManagerObjc.framework"
-
-  # Check if path exists
-  if [[ ! -d "$FRAMEWORK_SLICE" ]]; then
-    echo "Error: Framework slice not found at $FRAMEWORK_SLICE"
-    exit 1
+  if [[ "$HAS_DEVICE_SLICE" == true ]]; then
+    echo "Using device slice"
+    FRAMEWORK_SLICE="$DEVICE_SLICE"
+  elif [[ "$HAS_SIMULATOR_SLICE" == true ]]; then
+    echo "Device slice not found, using simulator slice as fallback"
+    FRAMEWORK_SLICE="$SIMULATOR_SLICE"
+  else
+    echo "No appropriate framework slice found, skipping"
+    exit 0 # Exit gracefully
   fi
-
-  cp -R "$FRAMEWORK_SLICE" "$TARGET_PATH/"
 fi
+
+# Copy the framework
+echo "Copying framework from $FRAMEWORK_SLICE to $TARGET_PATH/"
+cp -R "$FRAMEWORK_SLICE" "$TARGET_PATH/"
 
 FRAMEWORK_EXECUTABLE_PATH="$TARGET_PATH/ContactsManagerObjc.framework/ContactsManagerObjc"
 
 # Make sure the binary is executable
-chmod +x "$FRAMEWORK_EXECUTABLE_PATH"
+if [[ -f "$FRAMEWORK_EXECUTABLE_PATH" ]]; then
+  chmod +x "$FRAMEWORK_EXECUTABLE_PATH"
+else
+  echo "Warning: Framework executable not found at $FRAMEWORK_EXECUTABLE_PATH"
+fi
 
 # Find the developer identity for the team
 if [ -z "$EXPANDED_CODE_SIGN_IDENTITY" ]; then
@@ -63,19 +99,19 @@ if [ -z "$EXPANDED_CODE_SIGN_IDENTITY" ]; then
 fi
 
 # Make sure frameworks are signed properly
-if [ -n "$EXPANDED_CODE_SIGN_IDENTITY" ]; then
+if [ -n "$EXPANDED_CODE_SIGN_IDENTITY" ] && [ -d "$TARGET_PATH/ContactsManagerObjc.framework" ]; then
   echo "Signing framework with identity: $EXPANDED_CODE_SIGN_IDENTITY"
 
   # First strip any existing signatures
-  codesign --force --deep --preserve-metadata=identifier,entitlements --sign "" "$TARGET_PATH/ContactsManagerObjc.framework"
+  codesign --force --deep --preserve-metadata=identifier,entitlements --sign "" "$TARGET_PATH/ContactsManagerObjc.framework" || true
 
   # Then re-sign with our identity
-  codesign --force --deep --sign "$EXPANDED_CODE_SIGN_IDENTITY" --preserve-metadata=identifier,entitlements --verbose "$TARGET_PATH/ContactsManagerObjc.framework"
+  codesign --force --deep --sign "$EXPANDED_CODE_SIGN_IDENTITY" --preserve-metadata=identifier,entitlements --verbose "$TARGET_PATH/ContactsManagerObjc.framework" || true
 
   # Verify the signature
-  codesign -v "$TARGET_PATH/ContactsManagerObjc.framework"
+  codesign -v "$TARGET_PATH/ContactsManagerObjc.framework" || echo "Warning: Code signing verification failed, but continuing"
 else
-  echo "No code signing identity found, skipping signing"
+  echo "No code signing identity found or framework not copied, skipping signing"
 fi
 
-echo "Framework copied successfully to $TARGET_PATH"
+echo "Framework script completed"

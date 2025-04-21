@@ -15,6 +15,8 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Alert,
+  Platform,
+  NativeModules,
 } from 'react-native';
 import { useState, useEffect } from 'react';
 
@@ -26,15 +28,50 @@ export default function App() {
   const [accessStatus, setAccessStatus] = useState<ContactsAccessStatus | null>(
     null
   );
+  const [nativeModuleError, setNativeModuleError] = useState<string | null>(
+    null
+  );
 
+  // Check if the native module is available
   useEffect(() => {
-    multiply(3, 7).then(setResult);
+    // Log available native modules for debugging
+    console.log('Available NativeModules:', Object.keys(NativeModules));
+    console.log('ContactsmanagerRn:', NativeModules.ContactsmanagerRn);
+
+    // Check if the ContactsmanagerRn module is available
+    if (!NativeModules.ContactsmanagerRn) {
+      setNativeModuleError('Native module ContactsmanagerRn is not available');
+      return;
+    }
+
+    // Try the multiply function as a basic test
+    try {
+      multiply(3, 7)
+        .then((result) => {
+          console.log('Multiply result:', result);
+          setResult(result);
+        })
+        .catch((error) => {
+          console.error('Error calling multiply:', error);
+          setNativeModuleError(`Error in multiply: ${error.message || error}`);
+        });
+    } catch (error) {
+      console.error('Exception calling multiply:', error);
+      setNativeModuleError(
+        `Exception: ${error instanceof Error ? error.message : String(error)}`
+      );
+    }
   }, []);
 
   const handleRequestAccess = async () => {
     try {
       setLoading(true);
+      setNativeModuleError(null);
+
+      console.log('Requesting contacts access...');
       const { granted, status } = await requestContactsAccess();
+      console.log('Access result:', { granted, status });
+
       setHasPermission(granted);
       setAccessStatus(status);
 
@@ -48,6 +85,9 @@ export default function App() {
       }
     } catch (error) {
       console.error('Error requesting contacts access:', error);
+      setNativeModuleError(
+        `Error requesting access: ${error instanceof Error ? error.message : String(error)}`
+      );
       Alert.alert('Error', 'Failed to request contacts access');
     } finally {
       setLoading(false);
@@ -57,10 +97,18 @@ export default function App() {
   const fetchContacts = async () => {
     try {
       setLoading(true);
+      setNativeModuleError(null);
+
+      console.log('Fetching contacts...');
       const contactsList = await getContacts();
+      console.log(`Retrieved ${contactsList.length} contacts`);
+
       setContacts(contactsList);
     } catch (error) {
       console.error('Error fetching contacts:', error);
+      setNativeModuleError(
+        `Error fetching contacts: ${error instanceof Error ? error.message : String(error)}`
+      );
       Alert.alert('Error', 'Failed to fetch contacts');
     } finally {
       setLoading(false);
@@ -122,17 +170,31 @@ export default function App() {
     }
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Contacts Manager</Text>
-        <Text style={styles.subTitle}>Result from multiply: {result}</Text>
-        {accessStatus !== null && (
-          <Text style={styles.statusText}>Status: {getStatusText()}</Text>
-        )}
-      </View>
+  const renderContent = () => {
+    if (nativeModuleError) {
+      return (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorTitle}>Native Module Error</Text>
+          <Text style={styles.errorText}>{nativeModuleError}</Text>
+          <Text style={styles.errorNote}>
+            This is likely due to framework linking issues. Please check the
+            README for setup instructions.
+          </Text>
+          <View style={styles.errorDebugContainer}>
+            <Text style={styles.errorDebugTitle}>Debug Info:</Text>
+            <Text style={styles.errorDebugText}>
+              Platform: {Platform.OS} {Platform.Version}
+            </Text>
+            <Text style={styles.errorDebugText}>
+              Available Modules: {Object.keys(NativeModules).join(', ')}
+            </Text>
+          </View>
+        </View>
+      );
+    }
 
-      {!hasPermission ? (
+    if (!hasPermission) {
+      return (
         <View style={styles.permissionContainer}>
           <Text style={styles.permissionText}>
             This app needs access to your contacts to display them.
@@ -145,35 +207,57 @@ export default function App() {
             <Text style={styles.buttonText}>Request Access</Text>
           </TouchableOpacity>
         </View>
-      ) : (
-        <>
-          {loading ? (
-            <View style={styles.loadingContainer}>
-              <ActivityIndicator size="large" color="#0066CC" />
-              <Text style={styles.loadingText}>Loading contacts...</Text>
-            </View>
-          ) : contacts.length === 0 ? (
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No contacts found</Text>
-              <TouchableOpacity style={styles.button} onPress={fetchContacts}>
-                <Text style={styles.buttonText}>Refresh</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <>
-              <Text style={styles.contactCount}>
-                {contacts.length} contacts found
-              </Text>
-              <FlatList
-                data={contacts}
-                renderItem={renderContact}
-                keyExtractor={(item) => item.contactId}
-                contentContainerStyle={styles.contactsList}
-              />
-            </>
-          )}
-        </>
-      )}
+      );
+    }
+
+    if (loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0066CC" />
+          <Text style={styles.loadingText}>Loading contacts...</Text>
+        </View>
+      );
+    }
+
+    if (contacts.length === 0) {
+      return (
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>No contacts found</Text>
+          <TouchableOpacity style={styles.button} onPress={fetchContacts}>
+            <Text style={styles.buttonText}>Refresh</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+
+    return (
+      <>
+        <Text style={styles.contactCount}>
+          {contacts.length} contacts found
+        </Text>
+        <FlatList
+          data={contacts}
+          renderItem={renderContact}
+          keyExtractor={(item) => item.contactId}
+          contentContainerStyle={styles.contactsList}
+        />
+      </>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Contacts Manager</Text>
+        <Text style={styles.subTitle}>
+          Result from multiply: {result ?? 'N/A'}
+        </Text>
+        {accessStatus !== null && (
+          <Text style={styles.statusText}>Status: {getStatusText()}</Text>
+        )}
+      </View>
+
+      {renderContent()}
     </SafeAreaView>
   );
 }
@@ -309,5 +393,49 @@ const styles = StyleSheet.create({
     color: '#666',
     padding: 16,
     paddingBottom: 0,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    backgroundColor: '#FFF0F0',
+  },
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#CC0000',
+    marginBottom: 12,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  errorNote: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 24,
+    fontStyle: 'italic',
+  },
+  errorDebugContainer: {
+    width: '100%',
+    padding: 16,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  errorDebugTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 8,
+  },
+  errorDebugText: {
+    fontSize: 12,
+    color: '#666',
+    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
   },
 });
