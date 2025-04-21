@@ -1,6 +1,6 @@
 {
   "name": "contactsmanager-rn",
-  "version": "0.3.0",
+  "version": "0.2.1",
   "description": "Add social features into your app with a single line of code",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
@@ -39,6 +39,7 @@
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
+    "prepare": "bob build && node scripts/prepublish.js",
     "release": "release-it",
     "postinstall": "node scripts/postinstall.js"
   },
