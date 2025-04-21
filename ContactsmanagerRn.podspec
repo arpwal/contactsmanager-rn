@@ -1,6 +1,7 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+min_ios_version_supported = "13.0"
 
 Pod::Spec.new do |s|
   s.name         = "ContactsmanagerRn"
@@ -15,21 +16,39 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm}"
 
-  # Add these lines to your podspec
+  # Ensure the framework is properly embedded
+  s.static_framework = true
   s.vendored_frameworks = 'ios/Frameworks/ContactsManagerObjc.xcframework'
 
+  # Prepare the framework for use
+  s.prepare_command = <<-CMD
+    cd #{File.dirname(__FILE__)}
+    if [ -e "./sign_framework.sh" ]; then
+      echo "Signing framework for ContactsManagerObjc..."
+      chmod +x ./sign_framework.sh
+      ./sign_framework.sh
+    fi
+  CMD
+
   s.pod_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks $(PODS_ROOT)/../..',
+    'OTHER_LDFLAGS' => '$(inherited) -framework ContactsManagerObjc',
+    'ENABLE_BITCODE' => 'NO',
+    'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES'
+  }
+
+  s.user_target_xcconfig = {
     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/../../ios/Frameworks'
   }
 
   # If your framework depends on system frameworks, add them:
   s.frameworks = 'Contacts', 'ContactsUI'
 
-# Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
-# See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
-if respond_to?(:install_modules_dependencies, true)
-  install_modules_dependencies(s)
-else
-  s.dependency "React-Core"
-end
+  # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
+  # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
+  if respond_to?(:install_modules_dependencies, true)
+    install_modules_dependencies(s)
+  else
+    s.dependency "React-Core"
+  end
 end
