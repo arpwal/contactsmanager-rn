@@ -4,17 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/ContactsAuthorizationService.h</key>
-		<data>
-		3cJL+tIHTCskSwlcCCt7Pdxj4Ow=
-		</data>
 		<key>Headers/ContactsManagerObjc.h</key>
 		<data>
-		XM1iASHyG8WwoLhzmLR5/BAHDBw=
+		8deLq19+vgFhQhKFgR0KLv0yoyc=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		UawCUz9aMVz8MV8BvEoXintQqE8=
+		rDKYGkThKbQLsgqJYMefPUFAHD0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -23,18 +19,11 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/ContactsAuthorizationService.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			mQxhmrkiex0UZkkILoqGu6M+tdtTKoe3vcrl5GP7pKs=
-			</data>
-		</dict>
 		<key>Headers/ContactsManagerObjc.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VjUDZ4j9+jUJiSobtzTw0nHECLto1NdKZkS13TRjv78=
+			j2ZXuoNjOhjn5g0jp/6iFXYo4A3jnhf9Rxz+hfWa7NI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -2,7 +2,7 @@
 //  ContactsManagerObjc.h
 //  ContactsManagerObjc
 //
-//  Created by Arpit Agarwal on 4/20/25.
+//  Created by Arpit Agarwal on 4/30/25.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,4 +14,3 @@ FOUNDATION_EXPORT double ContactsManagerObjcVersionNumber;
 FOUNDATION_EXPORT const unsigned char ContactsManagerObjcVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ContactsManagerObjc/PublicHeader.h>
-#import <ContactsManagerObjc/ContactsAuthorizationService.h>
