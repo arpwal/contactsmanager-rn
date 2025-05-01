@@ -6,15 +6,95 @@
 	<dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		FgQZ7TVGiOy1pdLGo5G8Kxh5xK4=
+		4ruQ77KYZ501CRnV7J/KfWBNIZ0=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
+		<data>
+		qaTEE3c5PZv4QshQ/qLgBLTSLKY=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIConfig.h</key>
+		<data>
+		NMfsNVaPVt26lanuIPC0lq9Hjp4=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIError.h</key>
+		<data>
+		m4+h/922YrSpsk7yoHZPYF14DiI=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContact.h</key>
+		<data>
+		GBOpY9FW8+eQQyK7XDh/fZb7gfM=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactDetail.h</key>
+		<data>
+		hmJAdvTzzf9jHLa7iAYqkLpQOvQ=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactExtensions.h</key>
+		<data>
+		YGMK5dw1jCZCPdOM4ouv3IGeHkc=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactMapper.h</key>
+		<data>
+		aECvjq7EYrmv/NH2rydP5df70tM=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
+		<data>
+		X0v6xGa/qSRGuJ/jLW3/OD1+H50=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSource.h</key>
+		<data>
+		0ZgTayAQjDMJITJq+c/O2gLEoaU=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSyncManager.h</key>
+		<data>
+		4PN34nlzuXK2o+R4krWkHHsJv3A=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactsManagerOptions.h</key>
+		<data>
+		1tc5CuRxiiqMv4CriRbEtLx4m+8=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMDeviceInfo.h</key>
+		<data>
+		A809kqxYjcntW0LkYd2wXT4HsI8=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMError.h</key>
+		<data>
+		x/16+77NGDKqcP/OQXcsY22FScI=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMRecommendationService.h</key>
+		<data>
+		DoWGIVZATjkI7mKSw30teb99teg=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMServerModels.h</key>
+		<data>
+		c/ZDYNBkA4Qjh1RUjR9DUEGnyUc=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMSocialModels.h</key>
+		<data>
+		paKRxwhrW46k7+T/znOwcA5A1M0=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMSocialService.h</key>
+		<data>
+		4YKQme1QV69q+Hbndpxph+F9RVQ=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMUserInfo.h</key>
+		<data>
+		/ko86+VGQ8P77SPBUVv1p2J2OBw=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/ContactsAuthorizationService.h</key>
+		<data>
+		3cJL+tIHTCskSwlcCCt7Pdxj4Ow=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/ContactsManagerObjc.h</key>
 		<data>
-		8deLq19+vgFhQhKFgR0KLv0yoyc=
+		AUU8B8riZFQZHmGlEN5FUrw1Rp0=
+		</data>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/NSDate+Utilities.h</key>
+		<data>
+		GTR96XpoLvYq6hzxeG0kTPv8NOg=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Info.plist</key>
 		<data>
-		BO6MGrWYJWdUXiudYoL7rRL8zVU=
+		pYAstnvHmNxA3ck7Ulv9BE7Gw3o=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Modules/module.modulemap</key>
 		<data>
@@ -22,19 +102,99 @@
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/_CodeSignature/CodeResources</key>
 		<data>
-		zz0qX2oyVTuBLZtpE/7f3dJrORU=
+		I6TIuo2HIsMAmtKTFioiS3qbfj0=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		jSV+KbebF+JF759ax8+kRIA5Uc8=
+		VZ1xNbHwQQDPbuCJWfEINyyBWoI=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
+		<data>
+		qaTEE3c5PZv4QshQ/qLgBLTSLKY=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIConfig.h</key>
+		<data>
+		NMfsNVaPVt26lanuIPC0lq9Hjp4=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIError.h</key>
+		<data>
+		m4+h/922YrSpsk7yoHZPYF14DiI=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContact.h</key>
+		<data>
+		GBOpY9FW8+eQQyK7XDh/fZb7gfM=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactDetail.h</key>
+		<data>
+		hmJAdvTzzf9jHLa7iAYqkLpQOvQ=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactExtensions.h</key>
+		<data>
+		YGMK5dw1jCZCPdOM4ouv3IGeHkc=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactMapper.h</key>
+		<data>
+		aECvjq7EYrmv/NH2rydP5df70tM=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
+		<data>
+		X0v6xGa/qSRGuJ/jLW3/OD1+H50=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSource.h</key>
+		<data>
+		0ZgTayAQjDMJITJq+c/O2gLEoaU=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSyncManager.h</key>
+		<data>
+		4PN34nlzuXK2o+R4krWkHHsJv3A=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactsManagerOptions.h</key>
+		<data>
+		1tc5CuRxiiqMv4CriRbEtLx4m+8=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMDeviceInfo.h</key>
+		<data>
+		A809kqxYjcntW0LkYd2wXT4HsI8=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMError.h</key>
+		<data>
+		x/16+77NGDKqcP/OQXcsY22FScI=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMRecommendationService.h</key>
+		<data>
+		DoWGIVZATjkI7mKSw30teb99teg=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMServerModels.h</key>
+		<data>
+		c/ZDYNBkA4Qjh1RUjR9DUEGnyUc=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMSocialModels.h</key>
+		<data>
+		paKRxwhrW46k7+T/znOwcA5A1M0=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMSocialService.h</key>
+		<data>
+		4YKQme1QV69q+Hbndpxph+F9RVQ=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMUserInfo.h</key>
+		<data>
+		/ko86+VGQ8P77SPBUVv1p2J2OBw=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/ContactsAuthorizationService.h</key>
+		<data>
+		3cJL+tIHTCskSwlcCCt7Pdxj4Ow=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/ContactsManagerObjc.h</key>
 		<data>
-		8deLq19+vgFhQhKFgR0KLv0yoyc=
+		AUU8B8riZFQZHmGlEN5FUrw1Rp0=
+		</data>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/NSDate+Utilities.h</key>
+		<data>
+		GTR96XpoLvYq6hzxeG0kTPv8NOg=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Info.plist</key>
 		<data>
-		rDKYGkThKbQLsgqJYMefPUFAHD0=
+		74wZGwchtNWUqNlxwQ+xlHIgTec=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Modules/module.modulemap</key>
 		<data>
@@ -42,7 +202,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/_CodeSignature/CodeResources</key>
 		<data>
-		eRDGqeeBrnlFF462M6lc14Gdx1s=
+		6JlTmlf9jCaZBOMzIN3Q2wM/4CM=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -51,33 +211,253 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FgQZ7TVGiOy1pdLGo5G8Kxh5xK4=
+			4ruQ77KYZ501CRnV7J/KfWBNIZ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			sdBaBtO3qa8DgeEVlh4YUIzwlOlPAKbein4WYAGKlgc=
+			qZQUfmyfyzSsjxown1Ft7RqN1B/YHG9B63GIiT/2i2A=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qaTEE3c5PZv4QshQ/qLgBLTSLKY=
+			</data>
+			<key>hash2</key>
+			<data>
+			zNkDFzPsVyaJy1i2yvDgONAW+kh7xrgCTXM6iKbO360=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIConfig.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NMfsNVaPVt26lanuIPC0lq9Hjp4=
+			</data>
+			<key>hash2</key>
+			<data>
+			4NBYoKcxBLjC5i3Cuoec4MHVI6AD8g/WZnflB2708Zw=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIError.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			m4+h/922YrSpsk7yoHZPYF14DiI=
+			</data>
+			<key>hash2</key>
+			<data>
+			g5o5kRIxPngqzSzOIhwvrgjfIZAirj2Zm0KQGzSXC3k=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContact.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GBOpY9FW8+eQQyK7XDh/fZb7gfM=
+			</data>
+			<key>hash2</key>
+			<data>
+			EPJZUYKSEjMlG3h+LhklqAR9A1Z65PMTpNzOZArGUco=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactDetail.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hmJAdvTzzf9jHLa7iAYqkLpQOvQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			cOrBqFerAJbTkVcWho/Fq4Arg5H1Me9NBpCozn5gK0g=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactExtensions.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YGMK5dw1jCZCPdOM4ouv3IGeHkc=
+			</data>
+			<key>hash2</key>
+			<data>
+			foedPE3gylX7wRKgsl0CjAD7/ThRFbK8QZ5J3Mv7lEw=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactMapper.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aECvjq7EYrmv/NH2rydP5df70tM=
+			</data>
+			<key>hash2</key>
+			<data>
+			D6sIizW90ybt+SkmOrFkYkhVitIzh/jj/CrYl6PypHY=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			X0v6xGa/qSRGuJ/jLW3/OD1+H50=
+			</data>
+			<key>hash2</key>
+			<data>
+			D6tSsSfHEDtuWoXDnKZwM4TmdBVmYJXPwh0S/TsOzII=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSource.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0ZgTayAQjDMJITJq+c/O2gLEoaU=
+			</data>
+			<key>hash2</key>
+			<data>
+			nStMiHD/+OXnTqrqt5EDFbdAzA5lI+0D7mXZU1cTHwg=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSyncManager.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4PN34nlzuXK2o+R4krWkHHsJv3A=
+			</data>
+			<key>hash2</key>
+			<data>
+			7y1QTAgma1O0mxpJyUn/IUoqY+uSQ7BqY1KU7Mq29XM=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactsManagerOptions.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1tc5CuRxiiqMv4CriRbEtLx4m+8=
+			</data>
+			<key>hash2</key>
+			<data>
+			Qm2pAf3sIlIuQdXqfdzVTLA1vlV2TGt3+Ta/VxsY6/s=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMDeviceInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			A809kqxYjcntW0LkYd2wXT4HsI8=
+			</data>
+			<key>hash2</key>
+			<data>
+			BL8ctlNXdFuXStYHzPAilAgSv98cE+RUpyDIKdjK9xk=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMError.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			x/16+77NGDKqcP/OQXcsY22FScI=
+			</data>
+			<key>hash2</key>
+			<data>
+			XL6pW0MclUxlT6AfpNqzsPQCNEoFHTl6Yj2lWLxz4WQ=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMRecommendationService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DoWGIVZATjkI7mKSw30teb99teg=
+			</data>
+			<key>hash2</key>
+			<data>
+			XJZ1qyrSHk5gUR8UHTQUt32MLLTKMkPdN0ZPn6qwyEk=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMServerModels.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			c/ZDYNBkA4Qjh1RUjR9DUEGnyUc=
+			</data>
+			<key>hash2</key>
+			<data>
+			l8Vn9BuCWG+lR+LXNQjWhe1d/lVwbvMER1vZ1cVkceo=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMSocialModels.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			paKRxwhrW46k7+T/znOwcA5A1M0=
+			</data>
+			<key>hash2</key>
+			<data>
+			Im9MmoGrbEiBvsAzHdeYlU6jJs9AJN4RjJCgZOBceWs=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMSocialService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4YKQme1QV69q+Hbndpxph+F9RVQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			igw5E4oQAfWeSmgWFOLkmkW7wZon2cWuWJ/UbpJfVWM=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMUserInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/ko86+VGQ8P77SPBUVv1p2J2OBw=
+			</data>
+			<key>hash2</key>
+			<data>
+			1k9ONSGOSlouR2rIQuHyB/O15pJthoKw7RUiGZwKWdM=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/ContactsAuthorizationService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3cJL+tIHTCskSwlcCCt7Pdxj4Ow=
+			</data>
+			<key>hash2</key>
+			<data>
+			mQxhmrkiex0UZkkILoqGu6M+tdtTKoe3vcrl5GP7pKs=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/ContactsManagerObjc.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8deLq19+vgFhQhKFgR0KLv0yoyc=
+			AUU8B8riZFQZHmGlEN5FUrw1Rp0=
 			</data>
 			<key>hash2</key>
 			<data>
-			j2ZXuoNjOhjn5g0jp/6iFXYo4A3jnhf9Rxz+hfWa7NI=
+			P/JHQpdbK7b1RGZH4yjFlwuQo+Rv9d61FGUrZpen8jY=
+			</data>
+		</dict>
+		<key>ios-arm64/ContactsManagerObjc.framework/Headers/NSDate+Utilities.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GTR96XpoLvYq6hzxeG0kTPv8NOg=
+			</data>
+			<key>hash2</key>
+			<data>
+			ygyK/Jrgco6o8k1ndQW927Fy71Pw27RVCQ8ZEwwtSc8=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			BO6MGrWYJWdUXiudYoL7rRL8zVU=
+			pYAstnvHmNxA3ck7Ulv9BE7Gw3o=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZUBGPJj/psC8WUFW17OBFBoxK5KTenB/W7BrU+kVRAI=
+			JWqdW3LhNaVMBDMxs+7TajmWs/l/7Lmk67cNh36E28k=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Modules/module.modulemap</key>
@@ -95,44 +475,264 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zz0qX2oyVTuBLZtpE/7f3dJrORU=
+			I6TIuo2HIsMAmtKTFioiS3qbfj0=
 			</data>
 			<key>hash2</key>
 			<data>
-			2MqZO1CU3cPNGtThnSyz5Plb7IJhjQ+srF6IvtsnbzM=
+			z3KvLAoFZO6/0EK1UMIoawqPtOY3+q21Eq2GqgLvW6I=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jSV+KbebF+JF759ax8+kRIA5Uc8=
+			VZ1xNbHwQQDPbuCJWfEINyyBWoI=
 			</data>
 			<key>hash2</key>
 			<data>
-			WeE1t9DxxzqiiTHdlNzJ5ZUK3Q+3EpgY+WW+MmBfv+M=
+			Weas3dNtqZhavutvYktzEiFLY2QJeXCEhIY9sDpsaME=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qaTEE3c5PZv4QshQ/qLgBLTSLKY=
+			</data>
+			<key>hash2</key>
+			<data>
+			zNkDFzPsVyaJy1i2yvDgONAW+kh7xrgCTXM6iKbO360=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIConfig.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NMfsNVaPVt26lanuIPC0lq9Hjp4=
+			</data>
+			<key>hash2</key>
+			<data>
+			4NBYoKcxBLjC5i3Cuoec4MHVI6AD8g/WZnflB2708Zw=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIError.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			m4+h/922YrSpsk7yoHZPYF14DiI=
+			</data>
+			<key>hash2</key>
+			<data>
+			g5o5kRIxPngqzSzOIhwvrgjfIZAirj2Zm0KQGzSXC3k=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContact.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GBOpY9FW8+eQQyK7XDh/fZb7gfM=
+			</data>
+			<key>hash2</key>
+			<data>
+			EPJZUYKSEjMlG3h+LhklqAR9A1Z65PMTpNzOZArGUco=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactDetail.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hmJAdvTzzf9jHLa7iAYqkLpQOvQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			cOrBqFerAJbTkVcWho/Fq4Arg5H1Me9NBpCozn5gK0g=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactExtensions.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YGMK5dw1jCZCPdOM4ouv3IGeHkc=
+			</data>
+			<key>hash2</key>
+			<data>
+			foedPE3gylX7wRKgsl0CjAD7/ThRFbK8QZ5J3Mv7lEw=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactMapper.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aECvjq7EYrmv/NH2rydP5df70tM=
+			</data>
+			<key>hash2</key>
+			<data>
+			D6sIizW90ybt+SkmOrFkYkhVitIzh/jj/CrYl6PypHY=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			X0v6xGa/qSRGuJ/jLW3/OD1+H50=
+			</data>
+			<key>hash2</key>
+			<data>
+			D6tSsSfHEDtuWoXDnKZwM4TmdBVmYJXPwh0S/TsOzII=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSource.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			0ZgTayAQjDMJITJq+c/O2gLEoaU=
+			</data>
+			<key>hash2</key>
+			<data>
+			nStMiHD/+OXnTqrqt5EDFbdAzA5lI+0D7mXZU1cTHwg=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSyncManager.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4PN34nlzuXK2o+R4krWkHHsJv3A=
+			</data>
+			<key>hash2</key>
+			<data>
+			7y1QTAgma1O0mxpJyUn/IUoqY+uSQ7BqY1KU7Mq29XM=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactsManagerOptions.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1tc5CuRxiiqMv4CriRbEtLx4m+8=
+			</data>
+			<key>hash2</key>
+			<data>
+			Qm2pAf3sIlIuQdXqfdzVTLA1vlV2TGt3+Ta/VxsY6/s=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMDeviceInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			A809kqxYjcntW0LkYd2wXT4HsI8=
+			</data>
+			<key>hash2</key>
+			<data>
+			BL8ctlNXdFuXStYHzPAilAgSv98cE+RUpyDIKdjK9xk=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMError.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			x/16+77NGDKqcP/OQXcsY22FScI=
+			</data>
+			<key>hash2</key>
+			<data>
+			XL6pW0MclUxlT6AfpNqzsPQCNEoFHTl6Yj2lWLxz4WQ=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMRecommendationService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DoWGIVZATjkI7mKSw30teb99teg=
+			</data>
+			<key>hash2</key>
+			<data>
+			XJZ1qyrSHk5gUR8UHTQUt32MLLTKMkPdN0ZPn6qwyEk=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMServerModels.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			c/ZDYNBkA4Qjh1RUjR9DUEGnyUc=
+			</data>
+			<key>hash2</key>
+			<data>
+			l8Vn9BuCWG+lR+LXNQjWhe1d/lVwbvMER1vZ1cVkceo=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMSocialModels.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			paKRxwhrW46k7+T/znOwcA5A1M0=
+			</data>
+			<key>hash2</key>
+			<data>
+			Im9MmoGrbEiBvsAzHdeYlU6jJs9AJN4RjJCgZOBceWs=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMSocialService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4YKQme1QV69q+Hbndpxph+F9RVQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			igw5E4oQAfWeSmgWFOLkmkW7wZon2cWuWJ/UbpJfVWM=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMUserInfo.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/ko86+VGQ8P77SPBUVv1p2J2OBw=
+			</data>
+			<key>hash2</key>
+			<data>
+			1k9ONSGOSlouR2rIQuHyB/O15pJthoKw7RUiGZwKWdM=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/ContactsAuthorizationService.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3cJL+tIHTCskSwlcCCt7Pdxj4Ow=
+			</data>
+			<key>hash2</key>
+			<data>
+			mQxhmrkiex0UZkkILoqGu6M+tdtTKoe3vcrl5GP7pKs=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/ContactsManagerObjc.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8deLq19+vgFhQhKFgR0KLv0yoyc=
+			AUU8B8riZFQZHmGlEN5FUrw1Rp0=
 			</data>
 			<key>hash2</key>
 			<data>
-			j2ZXuoNjOhjn5g0jp/6iFXYo4A3jnhf9Rxz+hfWa7NI=
+			P/JHQpdbK7b1RGZH4yjFlwuQo+Rv9d61FGUrZpen8jY=
+			</data>
+		</dict>
+		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/NSDate+Utilities.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GTR96XpoLvYq6hzxeG0kTPv8NOg=
+			</data>
+			<key>hash2</key>
+			<data>
+			ygyK/Jrgco6o8k1ndQW927Fy71Pw27RVCQ8ZEwwtSc8=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Info.plist</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rDKYGkThKbQLsgqJYMefPUFAHD0=
+			74wZGwchtNWUqNlxwQ+xlHIgTec=
 			</data>
 			<key>hash2</key>
 			<data>
-			EvvQ77pid7p04Pvy6UglE0MLZiXcxgARhlTLlxj7OK8=
+			zotDcQyzJ1cqpiw0ZGmi3KzNVC5vPHr6d/qNg2ooFGU=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Modules/module.modulemap</key>
@@ -150,11 +750,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			eRDGqeeBrnlFF462M6lc14Gdx1s=
+			6JlTmlf9jCaZBOMzIN3Q2wM/4CM=
 			</data>
 			<key>hash2</key>
 			<data>
-			2oRB1ICrwRI/Fud7bd6ybudoroqeKx0VSjqxBU4gGnA=
+			I/v0MlRP8lGN8O1X5gB2s442Bi2knS8bGLkabeqkwPs=
 			</data>
 		</dict>
 	</dict>
