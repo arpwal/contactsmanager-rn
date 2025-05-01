@@ -19,6 +19,7 @@ FOUNDATION_EXPORT const unsigned char ContactsManagerObjcVersionString[];
 #import <ContactsManagerObjc/ContactsAuthorizationService.h>
 
 // Models
+#import <ContactsManagerObjc/CMUserInfo.h>
 #import <ContactsManagerObjc/CMContact.h>
 #import <ContactsManagerObjc/CMContactDetail.h>
 #import <ContactsManagerObjc/CMError.h>

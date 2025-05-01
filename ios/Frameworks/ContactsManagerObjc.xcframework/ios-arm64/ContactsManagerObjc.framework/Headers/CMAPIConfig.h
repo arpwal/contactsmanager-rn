@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, CMRuntimeEnvironment) {
 @property (class, nonatomic, readonly) NSString *contactsSyncEndpoint;
 @property (class, nonatomic, readonly) NSString *contactSourceEndpoint;
 @property (class, nonatomic, readonly) NSString *userInfoEndpoint;
+@property (class, nonatomic, readonly) NSString *healthEndpoint;
 
 /**
  * Recommendation endpoints
@@ -109,6 +110,36 @@ typedef NS_ENUM(NSInteger, CMRuntimeEnvironment) {
  * Get the base URL for API requests
  */
 + (NSString *)baseURL;
+
+/**
+ * Get the endpoint for token requests
+ */
++ (NSString *)tokenEndpoint;
+
+/**
+ * Get the endpoint for contacts
+ */
++ (NSString *)contactsEndpoint;
+
+/**
+ * Get the endpoint for contacts sync
+ */
++ (NSString *)contactsSyncEndpoint;
+
+/**
+ * Get the endpoint for contact sources
+ */
++ (NSString *)contactSourceEndpoint;
+
+/**
+ * Get the endpoint for user info
+ */
++ (NSString *)userInfoEndpoint;
+
+/**
+ * Get the endpoint for API health checks
+ */
++ (NSString *)healthEndpoint;
 
 /**
  * Get the endpoint for contact recommendations to invite
