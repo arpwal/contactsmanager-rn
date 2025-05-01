@@ -60,12 +60,22 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Initialize with user ID
  */
-- (instancetype)initWithUserId:(NSString *)userId;
+- (instancetype)initWithUserId:(NSString *)userId NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initialize with user ID and device info
  */
-- (instancetype)initWithUserId:(NSString *)userId deviceInfo:(nullable CMDeviceInfo *)deviceInfo;
+- (instancetype)initWithUserId:(NSString *)userId deviceInfo:(nullable CMDeviceInfo *)deviceInfo NS_DESIGNATED_INITIALIZER;
+
+/**
+ * Unavailable initializer. Use sharedInstance or initWithUserId: instead.
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ * Unavailable initializer. Use sharedInstance or initWithUserId: instead.
+ */
++ (instancetype)new NS_UNAVAILABLE;
 
 /**
  * Set the ContactSyncManager to use for source management
@@ -95,11 +105,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Get user info from the server
  */
 - (void)getUserInfoWithCompletionHandler:(void (^)(NSDictionary * _Nullable userInfo, NSError * _Nullable error))completion;
-
-/**
- * Validate API key 
- */
-+ (void)validateAPIKey:(NSString *)apiKey completionHandler:(void (^)(BOOL isValid, NSError * _Nullable error))completion;
 
 /**
  * Validate API key with token and user info
