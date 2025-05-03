@@ -1,6 +1,0 @@
-framework module ContactsManagerObjc {
-  umbrella header "ContactsManagerObjc.h"
-  export *
-
-  module * { export * }
-}
