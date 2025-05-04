@@ -6,7 +6,7 @@
 	<dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		TUeYJsrKBHls4cfe7XNOuhG7kFY=
+		tn98wac+FCL4vhrnTiTv7ctfnw8=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactService+Sync.h</key>
 		<data>
-		GcHtPuH+A7+MEyvlSORDU8ppxeo=
+		KUyUHuw4Raa38DwiVTs6yy341UY=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
 		<data>
@@ -62,11 +62,11 @@
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactStorageManager.h</key>
 		<data>
-		mAOi2nKfLkSd+IUQGnIsfmTMcHg=
+		/GpO9kBRfOZjvSWkjJwKK3my5EM=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSyncInfo.h</key>
 		<data>
-		uw7rvfqIQP0z+QNskIkJmI27plU=
+		yQ82bfFENjGYKCf/5V5wLrRGQnc=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactsAuthorizationService.h</key>
 		<data>
@@ -130,11 +130,11 @@
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/_CodeSignature/CodeResources</key>
 		<data>
-		eDmbLjf14poz8//79lCs9vEAA5o=
+		IwNIYgA1z8VrxrBPPV3d96hU1C0=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		M2dQemzzUtuSRozv22tvdBihEKM=
+		7Oh22t/pGv+jcUk9NLoI16BZHvM=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
 		<data>
@@ -174,7 +174,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactService+Sync.h</key>
 		<data>
-		GcHtPuH+A7+MEyvlSORDU8ppxeo=
+		KUyUHuw4Raa38DwiVTs6yy341UY=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
 		<data>
@@ -190,11 +190,11 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactStorageManager.h</key>
 		<data>
-		mAOi2nKfLkSd+IUQGnIsfmTMcHg=
+		/GpO9kBRfOZjvSWkjJwKK3my5EM=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSyncInfo.h</key>
 		<data>
-		uw7rvfqIQP0z+QNskIkJmI27plU=
+		yQ82bfFENjGYKCf/5V5wLrRGQnc=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactsAuthorizationService.h</key>
 		<data>
@@ -258,7 +258,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/_CodeSignature/CodeResources</key>
 		<data>
-		YD0j6rueXRlDUQaU5/rerZ+azTs=
+		8KOFfn6Qtf7w/WXfNg83K2P6EyY=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -267,11 +267,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TUeYJsrKBHls4cfe7XNOuhG7kFY=
+			tn98wac+FCL4vhrnTiTv7ctfnw8=
 			</data>
 			<key>hash2</key>
 			<data>
-			7mCkhsUdAJNz7rU3TaFjbMmkuABci7NCvMs7r19ElK0=
+			9CwuhpTHHyGhOeRxN3TZIjz57h0hNxyXMQTqkx94ymM=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
@@ -377,11 +377,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			GcHtPuH+A7+MEyvlSORDU8ppxeo=
+			KUyUHuw4Raa38DwiVTs6yy341UY=
 			</data>
 			<key>hash2</key>
 			<data>
-			CIl18yY1Cv0itCfp2Js4Ht1pOTlu2Bc02eZ5iwcjfno=
+			w6yL55qJoWx+Sd3ZXSzyblCDV26bEgeisCL3hdQszSw=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
@@ -421,22 +421,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mAOi2nKfLkSd+IUQGnIsfmTMcHg=
+			/GpO9kBRfOZjvSWkjJwKK3my5EM=
 			</data>
 			<key>hash2</key>
 			<data>
-			UXI6CfZ8mCtrHHCHXRX+dWO6ZakavkxlPIeOoFUL+cs=
+			/iWB7qqMHp7iShqMBB0pprI4S4zRV9BAHUv36VZDG+g=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactSyncInfo.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			uw7rvfqIQP0z+QNskIkJmI27plU=
+			yQ82bfFENjGYKCf/5V5wLrRGQnc=
 			</data>
 			<key>hash2</key>
 			<data>
-			B3BXEo1DtAq61WRCp8XS0yi8Ee1sIcdoJwd+9dXE3Jo=
+			4l0cxRGKY4MkGly+lqnbtK8Z4ISvvq//2Dm5OdAbB4E=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMContactsAuthorizationService.h</key>
@@ -608,22 +608,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			eDmbLjf14poz8//79lCs9vEAA5o=
+			IwNIYgA1z8VrxrBPPV3d96hU1C0=
 			</data>
 			<key>hash2</key>
 			<data>
-			XdwB2i8gjAWnTCihlblrQS7LeXzZvDwfVbCXRx+fSOA=
+			fAwVLh3BvJq5VyjGz588lobr0uKTs4r2sr2K2AQQ5OA=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			M2dQemzzUtuSRozv22tvdBihEKM=
+			7Oh22t/pGv+jcUk9NLoI16BZHvM=
 			</data>
 			<key>hash2</key>
 			<data>
-			7JszNyW9jyUd25UWjKPn8kyXEt//c/gxkDttMDljMgM=
+			HqwCIWtcR4g8f8OabDth//V4IOTWg/4MfgAS4J0douk=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
@@ -729,11 +729,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			GcHtPuH+A7+MEyvlSORDU8ppxeo=
+			KUyUHuw4Raa38DwiVTs6yy341UY=
 			</data>
 			<key>hash2</key>
 			<data>
-			CIl18yY1Cv0itCfp2Js4Ht1pOTlu2Bc02eZ5iwcjfno=
+			w6yL55qJoWx+Sd3ZXSzyblCDV26bEgeisCL3hdQszSw=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactService.h</key>
@@ -773,22 +773,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mAOi2nKfLkSd+IUQGnIsfmTMcHg=
+			/GpO9kBRfOZjvSWkjJwKK3my5EM=
 			</data>
 			<key>hash2</key>
 			<data>
-			UXI6CfZ8mCtrHHCHXRX+dWO6ZakavkxlPIeOoFUL+cs=
+			/iWB7qqMHp7iShqMBB0pprI4S4zRV9BAHUv36VZDG+g=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactSyncInfo.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			uw7rvfqIQP0z+QNskIkJmI27plU=
+			yQ82bfFENjGYKCf/5V5wLrRGQnc=
 			</data>
 			<key>hash2</key>
 			<data>
-			B3BXEo1DtAq61WRCp8XS0yi8Ee1sIcdoJwd+9dXE3Jo=
+			4l0cxRGKY4MkGly+lqnbtK8Z4ISvvq//2Dm5OdAbB4E=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMContactsAuthorizationService.h</key>
@@ -960,11 +960,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YD0j6rueXRlDUQaU5/rerZ+azTs=
+			8KOFfn6Qtf7w/WXfNg83K2P6EyY=
 			</data>
 			<key>hash2</key>
 			<data>
-			rgbREIq9rSvWg52ZYcNIH1q2vdb+Dp7CuPBXEIntOVk=
+			YnWdVHIiOPxXy3cM5ByrzZsaethopBBaAX3fSQJ2vSU=
 			</data>
 		</dict>
 	</dict>

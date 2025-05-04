@@ -42,7 +42,7 @@
 		</data>
 		<key>Headers/CMContactService+Sync.h</key>
 		<data>
-		GcHtPuH+A7+MEyvlSORDU8ppxeo=
+		KUyUHuw4Raa38DwiVTs6yy341UY=
 		</data>
 		<key>Headers/CMContactService.h</key>
 		<data>
@@ -58,11 +58,11 @@
 		</data>
 		<key>Headers/CMContactStorageManager.h</key>
 		<data>
-		mAOi2nKfLkSd+IUQGnIsfmTMcHg=
+		/GpO9kBRfOZjvSWkjJwKK3my5EM=
 		</data>
 		<key>Headers/CMContactSyncInfo.h</key>
 		<data>
-		uw7rvfqIQP0z+QNskIkJmI27plU=
+		yQ82bfFENjGYKCf/5V5wLrRGQnc=
 		</data>
 		<key>Headers/CMContactsAuthorizationService.h</key>
 		<data>
@@ -194,7 +194,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CIl18yY1Cv0itCfp2Js4Ht1pOTlu2Bc02eZ5iwcjfno=
+			w6yL55qJoWx+Sd3ZXSzyblCDV26bEgeisCL3hdQszSw=
 			</data>
 		</dict>
 		<key>Headers/CMContactService.h</key>
@@ -222,14 +222,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UXI6CfZ8mCtrHHCHXRX+dWO6ZakavkxlPIeOoFUL+cs=
+			/iWB7qqMHp7iShqMBB0pprI4S4zRV9BAHUv36VZDG+g=
 			</data>
 		</dict>
 		<key>Headers/CMContactSyncInfo.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			B3BXEo1DtAq61WRCp8XS0yi8Ee1sIcdoJwd+9dXE3Jo=
+			4l0cxRGKY4MkGly+lqnbtK8Z4ISvvq//2Dm5OdAbB4E=
 			</data>
 		</dict>
 		<key>Headers/CMContactsAuthorizationService.h</key>

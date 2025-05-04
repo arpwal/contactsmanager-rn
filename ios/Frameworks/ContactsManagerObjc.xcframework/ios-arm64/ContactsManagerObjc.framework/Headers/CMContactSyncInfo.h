@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class CMContact;
+
 /**
  * Lightweight model for storing contact sync information
  * This is used for the file-based database to avoid storing full contacts
@@ -45,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Updates the primary display info from the given contact
  * @param contact The contact to extract display info from
  */
-- (void)updateDisplayInfoFromContact:(id)contact;
+- (void)updateDisplayInfoFromContact:(CMContact *)contact;
 
 /**
  * Mark the contact as requiring sync

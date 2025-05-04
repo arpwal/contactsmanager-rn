@@ -14,6 +14,7 @@
 #endif
 
 // Forward declaration for CMContactSyncInfo
+@class CMContact;
 @class CMContactSyncInfo;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,20 +29,20 @@ NS_ASSUME_NONNULL_BEGIN
  * @param contact The contact to check
  * @return YES if the contact has changes that need syncing
  */
-- (BOOL)hasContactChanged:(id)contact;
+- (BOOL)hasContactChanged:(CMContact *)contact;
 
 /**
  * Save sync information for a contact
  * @param contact The contact to save sync info for
  */
-- (void)saveSyncInfoForContact:(id)contact;
+- (void)saveSyncInfoForContact:(CMContact *)contact;
 
 /**
  * Get sync information for a contact
  * @param contact The contact to get sync info for
  * @return The sync info object or nil if none exists
  */
-- (nullable CMContactSyncInfo *)syncInfoForContact:(id)contact;
+- (nullable CMContactSyncInfo *)syncInfoForContact:(CMContact *)contact;
 
 /**
  * Get contacts that need to be synced

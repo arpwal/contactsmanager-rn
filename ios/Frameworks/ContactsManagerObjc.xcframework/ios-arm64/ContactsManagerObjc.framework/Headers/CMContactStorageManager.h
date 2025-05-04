@@ -19,6 +19,8 @@
 #import "CMContactSyncInfo.h"
 #endif
 
+@class CMContact;
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -39,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param contact The contact to save sync info for
  * @return The updated sync info object
  */
-- (CMContactSyncInfo *)saveSyncInfoForContact:(id)contact;
+- (CMContactSyncInfo *)saveSyncInfoForContact:(CMContact *)contact;
 
 /**
  * Mark a contact as deleted in the sync info
@@ -79,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param contact The contact to check
  * @return YES if the contact has changed, NO otherwise
  */
-- (BOOL)hasContactChanged:(id)contact;
+- (BOOL)hasContactChanged:(CMContact *)contact;
 
 @end
 
