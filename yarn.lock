@@ -4225,9 +4225,9 @@ eslint-plugin-jest@^27.9.0:
     "@typescript-eslint/utils" "^5.10.0"
 
 eslint-plugin-prettier@^5.2.3:
-  version "5.2.6"
-  resolved "https://registry.npmjs.org/eslint-plugin-prettier/-/eslint-plugin-prettier-5.2.6.tgz"
-  integrity sha512-mUcf7QG2Tjk7H055Jk0lGBjbgDnfrvqjhXh9t2xLMSCjZVcw9Rb1V6sVNXO0th3jgeO7zllWPTNRil3JW94TnQ==
+  version "5.3.1"
+  resolved "https://registry.npmjs.org/eslint-plugin-prettier/-/eslint-plugin-prettier-5.3.1.tgz"
+  integrity sha512-vad9VWgEm9xaVXRNmb4aeOt0PWDc61IAdzghkbYQ2wavgax148iKoX1rNJcgkBGCipzLzOnHYVgL7xudM9yccQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
     synckit "^0.11.0"
@@ -7951,9 +7951,9 @@ react-is@^18.0.0:
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
 react-native-builder-bob@^0.40.6:
-  version "0.40.8"
-  resolved "https://registry.npmjs.org/react-native-builder-bob/-/react-native-builder-bob-0.40.8.tgz"
-  integrity sha512-uoGBN8X3GXV5/iNSN44g5IReYABcJOV298abWsgxMI6jIrLnb5mwXHgjW2iht/BdLWUWrgY658imbPr+xWalxg==
+  version "0.40.9"
+  resolved "https://registry.npmjs.org/react-native-builder-bob/-/react-native-builder-bob-0.40.9.tgz"
+  integrity sha512-05LtPojjccP1IKLTXfiBwAZV8C7fdj9bUnp9sKVCo9tGPwL0+wGqib6E2T2ZXOKLMvTEvqhKZwBH/mLf1VJEHA==
   dependencies:
     "@babel/core" "^7.25.2"
     "@babel/plugin-transform-flow-strip-types" "^7.26.5"
@@ -7975,14 +7975,14 @@ react-native-builder-bob@^0.40.6:
     kleur "^4.1.4"
     metro-config "^0.80.9"
     prompts "^2.4.2"
-    react-native-monorepo-config "^0.1.7"
+    react-native-monorepo-config "^0.1.8"
     which "^2.0.2"
     yargs "^17.5.1"
 
-react-native-monorepo-config@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/react-native-monorepo-config/-/react-native-monorepo-config-0.1.7.tgz"
-  integrity sha512-CaAPp+CO0l8PfMgRu+GFAdsHV/DTTe+cgpCrvVTi4XFds/Ay2cIkzmj429wgwjiVtM+/GDipFJEn2JEu6yR0iw==
+react-native-monorepo-config@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/react-native-monorepo-config/-/react-native-monorepo-config-0.1.8.tgz"
+  integrity sha512-PHF4CJpth+Lza7XZDUEmsdnSkPttDn6uSmm6DNfbeXXtKIxSAuJxmvjjn0nt1TZImvJk/DbJNIFvcSr7fN1J3g==
   dependencies:
     escape-string-regexp "^5.0.0"
     fast-glob "^3.3.3"
