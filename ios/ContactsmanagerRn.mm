@@ -1,5 +1,5 @@
 #import "ContactsmanagerRn.h"
-#import <ContactsManagerObjc/ContactsManagerObjc.h>
+#import <ContactsManagerObjc/CMContactsAuthorizationService.h>
 
 @implementation ContactsmanagerRn
 RCT_EXPORT_MODULE()
@@ -22,21 +22,21 @@ RCT_EXPORT_METHOD(requestContactsAccess:(RCTPromiseResolveBlock)resolve
     // Add debug logging
     NSLog(@"ContactsmanagerRn: requestContactsAccess called");
 
-    Class authServiceClass = NSClassFromString(@"ContactsAuthorizationService");
+    Class authServiceClass = NSClassFromString(@"CMContactsAuthorizationService");
     if (!authServiceClass) {
-        NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class not found!");
+        NSLog(@"ContactsmanagerRn: CMContactsAuthorizationService class not found!");
         NSDictionary *response = @{
             @"granted": @(NO),
             @"status": @(0),
-            @"error": @"ContactsAuthorizationService class not found"
+            @"error": @"CMContactsAuthorizationService class not found"
         };
         resolve(response);
         return;
     }
 
-    NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class found");
+    NSLog(@"ContactsmanagerRn: CMContactsAuthorizationService class found");
 
-    [[ContactsAuthorizationService sharedInstance] requestAccessWithCompletion:^(ContactsAccessStatus status, NSError * _Nullable error) {
+    [[CMContactsAuthorizationService sharedInstance] requestAccessWithCompletion:^(ContactsAccessStatus status, NSError * _Nullable error) {
         if (error) {
             NSLog(@"ContactsmanagerRn: Error requesting contacts access: %@", error);
             reject(@"contacts_permission_error", @"Failed to request contacts permission", error);
@@ -60,14 +60,14 @@ RCT_EXPORT_METHOD(getContacts:(RCTPromiseResolveBlock)resolve
     // Add debug logging
     NSLog(@"ContactsmanagerRn: getContacts called");
 
-    Class authServiceClass = NSClassFromString(@"ContactsAuthorizationService");
+    Class authServiceClass = NSClassFromString(@"CMContactsAuthorizationService");
     if (!authServiceClass) {
-        NSLog(@"ContactsmanagerRn: ContactsAuthorizationService class not found!");
-        reject(@"contacts_manager_error", @"ContactsAuthorizationService class not found", nil);
+        NSLog(@"ContactsmanagerRn: CMContactsAuthorizationService class not found!");
+        reject(@"contacts_manager_error", @"CMContactsAuthorizationService class not found", nil);
         return;
     }
 
-    ContactsAccessStatus accessStatus = [[ContactsAuthorizationService sharedInstance] checkAccessStatus];
+    ContactsAccessStatus accessStatus = [[CMContactsAuthorizationService sharedInstance] checkAccessStatus];
     BOOL hasPermission = (accessStatus == ContactsAccessStatusAuthorized || accessStatus == ContactsAccessStatusLimitedAuthorized);
 
     NSLog(@"ContactsmanagerRn: Access status for getContacts: %ld", (long)accessStatus);
