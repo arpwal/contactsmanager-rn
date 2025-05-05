@@ -49,12 +49,45 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
+      - name: Check if version exists
+        id: version_check
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Get current version
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+
+          # Check if the next version would already exist in npm
+          BUMP_TYPE="${{ github.event.inputs.version_bump }}"
+          if [ "$BUMP_TYPE" = "patch" ]; then
+            NEXT_VERSION=$(node -e "const v='$CURRENT_VERSION'.split('.'); v[2]++; console.log(v.join('.'))")
+          elif [ "$BUMP_TYPE" = "minor" ]; then
+            NEXT_VERSION=$(node -e "const v='$CURRENT_VERSION'.split('.'); v[1]++; v[2]=0; console.log(v.join('.'))")
+          elif [ "$BUMP_TYPE" = "major" ]; then
+            NEXT_VERSION=$(node -e "const v='$CURRENT_VERSION'.split('.'); v[0]++; v[1]=0; v[2]=0; console.log(v.join('.'))")
+          fi
+
+          # Check if version exists in npm
+          if npm view "@contactsmanager/rn@$NEXT_VERSION" version &>/dev/null; then
+            echo "Version $NEXT_VERSION already exists in npm registry"
+            echo "VERSION_EXISTS=true" >> $GITHUB_OUTPUT
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "Version $NEXT_VERSION is available"
+            echo "VERSION_EXISTS=false" >> $GITHUB_OUTPUT
+            echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          fi
+
       - name: Create Release and Bump Version
+        if: steps.version_check.outputs.VERSION_EXISTS != 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          # Create release-it config file
+          # Use the package.json configuration for release-it but override npm publish
+          # This allows us to publish manually in the next step for better error handling
+
+          # Create temporary release-it config file that doesn't publish to npm yet
           echo '{
             "git": {
               "requireBranch": "main",
@@ -77,9 +110,16 @@ jobs:
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       - name: Publish to NPM
+        if: steps.version_check.outputs.VERSION_EXISTS != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: yarn publish-npm
 
       - name: Output Result
+        if: steps.version_check.outputs.VERSION_EXISTS != 'true'
         run: echo "Successfully published version ${{ env.NEW_VERSION }} to NPM"
+
+      - name: Version Already Exists
+        if: steps.version_check.outputs.VERSION_EXISTS == 'true'
+        run: |
+          echo "::warning::Version ${{ steps.version_check.outputs.NEXT_VERSION }} already exists in NPM registry. No changes were made."
