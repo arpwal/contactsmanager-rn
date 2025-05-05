@@ -12,7 +12,7 @@ import type {
 export function nativeToSimplifiedContact(contact: Contact): SimplifiedContact {
   return {
     contactId: contact.identifier,
-    displayName: contact.displayName,
+    displayName: contact.displayName || '',
     givenName: contact.givenName || '',
     familyName: contact.familyName || '',
     phoneNumbers: contact.phoneNumbers.map((phone) => ({
