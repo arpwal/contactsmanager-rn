@@ -4,7 +4,7 @@ import {
   getContacts,
   ContactsAccessStatus,
 } from 'contactsmanager-rn';
-import type { Contact } from 'contactsmanager-rn';
+import type { SimplifiedContact } from 'contactsmanager-rn';
 import {
   Text,
   View,
@@ -22,7 +22,7 @@ import { useState, useEffect } from 'react';
 
 export default function App() {
   const [result, setResult] = useState<number | undefined>();
-  const [contacts, setContacts] = useState<Contact[]>([]);
+  const [contacts, setContacts] = useState<SimplifiedContact[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
   const [accessStatus, setAccessStatus] = useState<ContactsAccessStatus | null>(
@@ -115,7 +115,7 @@ export default function App() {
     }
   };
 
-  const renderContact = ({ item }: { item: Contact }) => {
+  const renderContact = ({ item }: { item: SimplifiedContact }) => {
     return (
       <View style={styles.contactItem}>
         {item.thumbnailImageData ? (
@@ -128,7 +128,9 @@ export default function App() {
         ) : (
           <View style={styles.contactInitials}>
             <Text style={styles.initialsText}>
-              {item.givenName.charAt(0) || item.familyName.charAt(0) || '?'}
+              {(item.givenName && item.givenName.charAt(0)) ||
+                (item.familyName && item.familyName.charAt(0)) ||
+                '?'}
             </Text>
           </View>
         )}
