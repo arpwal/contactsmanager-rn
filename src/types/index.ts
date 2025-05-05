@@ -7,6 +7,8 @@ export * from './errors';
 export * from './server';
 export * from './config';
 
+import type { Contact } from './contacts';
+
 // Maintain backward compatibility with existing code
 export enum ContactsAccessStatus {
   NotDetermined = 0,
@@ -42,4 +44,30 @@ export type SimplifiedContact = {
 export type ContactsAccessResult = {
   granted: boolean;
   status: ContactsAccessStatus;
+};
+
+// Search Result Types
+export type SearchResult = {
+  contacts: Contact[];
+  totalCount: number;
+};
+
+// ContactsManagerOptions for initialization
+export type ContactsManagerOptions = {
+  cacheEnabled?: boolean;
+  cacheTTL?: number;
+  sortOrder?: string;
+  groupBySource?: boolean;
+  includeDeleted?: boolean;
+  maxResults?: number;
+  searchFuzzyMatching?: boolean;
+  syncEnabled?: boolean;
+  syncInterval?: number;
+  autoMergeContacts?: boolean;
+  mergeThreshold?: number;
+  storageEncryption?: boolean;
+  debug?: boolean;
+  logLevel?: string;
+  analytics?: boolean;
+  crashReporting?: boolean;
 };
