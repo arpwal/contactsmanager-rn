@@ -5,10 +5,10 @@
 
 // Contact Field Type Enum
 export enum ContactFieldType {
-  Any = 0,    // All available fields
-  Phone = 1,  // Only phone numbers
-  Email = 2,  // Only email addresses
-  Notes = 3   // Only notes
+  Any = 0, // All available fields
+  Phone = 1, // Only phone numbers
+  Email = 2, // Only email addresses
+  Notes = 3, // Only notes
 }
 
 // Enhanced Contact Detail Types

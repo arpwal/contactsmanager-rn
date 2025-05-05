@@ -29,7 +29,9 @@ export function searchContacts(
   offset: number = 0,
   limit: number = 20
 ): Promise<{ contacts: Contact[]; totalCount: number }> {
-  console.log(`Searching contacts with query: "${query}", fieldType: ${fieldType}, offset: ${offset}, limit: ${limit}...`);
+  console.log(
+    `Searching contacts with query: "${query}", fieldType: ${fieldType}, offset: ${offset}, limit: ${limit}...`
+  );
   return RNContactSearchService.searchContacts(query, fieldType, offset, limit);
 }
 

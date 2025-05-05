@@ -103,7 +103,9 @@ export function fetchContacts(): Promise<Contact[]> {
  * @param fieldType The type of fields to fetch
  * @returns Promise resolving to an array of contacts
  */
-export function fetchContactsWithFieldType(fieldType: ContactFieldType): Promise<Contact[]> {
+export function fetchContactsWithFieldType(
+  fieldType: ContactFieldType
+): Promise<Contact[]> {
   console.log(`Fetching contacts with fieldType: ${fieldType}...`);
   return RNContactService.fetchContactsWithFieldType(fieldType);
 }
@@ -118,7 +120,9 @@ export function fetchContactsWithBatch(
   batchSize: number,
   batchIndex: number
 ): Promise<Contact[]> {
-  console.log(`Fetching contacts with batchSize: ${batchSize}, batchIndex: ${batchIndex}...`);
+  console.log(
+    `Fetching contacts with batchSize: ${batchSize}, batchIndex: ${batchIndex}...`
+  );
   return RNContactService.fetchContactsWithBatch(batchSize, batchIndex);
 }
 
