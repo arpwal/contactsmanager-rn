@@ -17,13 +17,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # Needed for pushing commits and creating tags/releases
+      packages: write # Needed for publishing packages
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }} # Use the token for authentication
 
       - name: Setup
         uses: ./.github/actions/setup
@@ -92,7 +94,8 @@ jobs:
             "git": {
               "requireBranch": "main",
               "commitMessage": "chore: release v${version}",
-              "tagName": "v${version}"
+              "tagName": "v${version}",
+              "push": true
             },
             "github": {
               "release": true
@@ -123,3 +126,16 @@ jobs:
         if: steps.version_check.outputs.VERSION_EXISTS == 'true'
         run: |
           echo "::warning::Version ${{ steps.version_check.outputs.NEXT_VERSION }} already exists in NPM registry. No changes were made."
+
+      - name: Verify Git Status
+        if: steps.version_check.outputs.VERSION_EXISTS != 'true'
+        run: |
+          git status
+          echo "Verifying the changes were committed and pushed by release-it"
+          # Check if there are any uncommitted changes
+          if [[ -n $(git status -s) ]]; then
+            echo "WARNING: There are uncommitted changes after release-it"
+            git diff
+          else
+            echo "All changes were properly committed"
+          fi
