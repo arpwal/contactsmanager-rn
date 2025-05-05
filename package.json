@@ -42,7 +42,7 @@
     "prepare": "bob build",
     "release": "release-it",
     "postinstall": "node scripts/postinstall.js",
-    "publish-npm": "npm publish --access public"
+    "publish-npm": "yarn prepare && yarn release minor --ci --no-git.requireUpstream && npm publish --access public"
   },
   "keywords": [
     "react-native",
