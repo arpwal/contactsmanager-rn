@@ -1,5 +1,5 @@
 {
-  "name": "contactsmanager-rn",
+  "name": "@contactsmanager/rn",
   "version": "0.4.0",
   "description": "Add social features into your app with a single line of code",
   "source": "./src/index.tsx",
@@ -41,7 +41,8 @@
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "release": "release-it",
-    "postinstall": "node scripts/postinstall.js"
+    "postinstall": "node scripts/postinstall.js",
+    "publish-npm": "npm publish --access public"
   },
   "keywords": [
     "react-native",
