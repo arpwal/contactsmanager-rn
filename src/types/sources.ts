@@ -16,17 +16,22 @@ export enum SourceType {
 // Contact Source Model
 export type ContactSource = {
   identifier: string;
+  sourceIdentifier?: string;
+  sourceId: string;
   name: string;
   sourceType: SourceType;
   organizationId: string;
   canonicalContactId: string;
   isActive: boolean;
-  createdAt: number;
-  updatedAt: number;
-  lastSyncedAt?: number;
+  lastSyncAt?: number;
+  syncError?: string;
   credentials?: Record<string, any>;
   settings?: Record<string, any>;
   sourceMetadata?: Record<string, any>;
+  createdAt: number;
+  updatedAt: number;
+
+  // Additional fields from existing model (preserved)
   isSyncEnabled?: boolean;
   syncInterval?: number;
   syncScope?: string;

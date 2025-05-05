@@ -1,6 +1,12 @@
-// Re-export all services
-export * from './contactsAuthorization';
-export * from './contactsManager';
-export * from './contactsMapper';
+// Import all services
+import { ContactsAuthorizationService } from './contactsAuthorization';
+import { ContactsService } from './contactsService';
+import { ContactsSearchService, SearchFieldType } from './contactsSearchService';
 
-// Additional services can be added here in the future
+// Export the unified API
+export const ContactsManager = {
+  Authorization: ContactsAuthorizationService,
+  Contacts: ContactsService,
+  Search: ContactsSearchService,
+  SearchFieldType,
+};

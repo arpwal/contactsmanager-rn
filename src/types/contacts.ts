@@ -3,6 +3,14 @@
  * These types represent the core contact data structures
  */
 
+// Contact Field Type Enum
+export enum ContactFieldType {
+  Any = 0,    // All available fields
+  Phone = 1,  // Only phone numbers
+  Email = 2,  // Only email addresses
+  Notes = 3   // Only notes
+}
+
 // Enhanced Contact Detail Types
 // Note: Basic types (PhoneNumber and EmailAddress) are already defined in index.ts
 export type ContactPhoneNumber = {
@@ -28,6 +36,7 @@ export type ContactAddress = {
   postalCode?: string;
   country?: string;
   type?: string;
+  emoji?: string;
 };
 
 export type ContactDate = {
@@ -60,6 +69,7 @@ export type ContactInstantMessage = {
   contactId: string;
   service: string;
   username: string;
+  type?: string;
 };
 
 export type ContactAvatar = {
@@ -71,16 +81,24 @@ export type ContactAvatar = {
 // Complete Contact Model
 export type Contact = {
   identifier: string;
-  displayName: string;
+  displayName?: string;
+
+  // Basic information
+  contactType?: number;
+  namePrefix?: string;
   givenName?: string;
   middleName?: string;
   familyName?: string;
   previousFamilyName?: string;
+  nameSuffix?: string;
   nickname?: string;
+
+  // Organization details
   organizationName?: string;
   departmentName?: string;
   jobTitle?: string;
-  note?: string;
+
+  // Contact information collections
   phoneNumbers: ContactPhoneNumber[];
   emailAddresses: ContactEmailAddress[];
   addresses: ContactAddress[];
@@ -89,11 +107,34 @@ export type Contact = {
   socialProfiles: ContactSocialProfile[];
   relations: ContactRelation[];
   instantMessageAddresses: ContactInstantMessage[];
+
+  // Additional information
+  notes?: string;
+  bio?: string;
+  location?: string;
+
+  // Birthday
+  birthday?: number; // timestamp
+
+  // Image data
+  imageUrl?: string;
+  imageData?: string; // base64 encoded
+  thumbnailImageData?: string; // base64 encoded
+  imageDataAvailable?: boolean;
+
+  // Extra data
   interests: string[];
   avatars: ContactAvatar[];
+
+  // Sync information
   isDeleted: boolean;
-  createdAt: number;
   dirtyTime?: number;
+  lastSyncedAt?: number;
+
+  // Additional properties
   contactSection: string;
   matchString: string;
+  parentContactId?: string;
+  sourceId?: string;
+  createdAt: number;
 };
