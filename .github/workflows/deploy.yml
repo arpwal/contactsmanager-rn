@@ -1,4 +1,4 @@
-name: Manual Deployment
+name: Deployment Workflow
 
 on:
   workflow_dispatch:
@@ -12,6 +12,28 @@ on:
           - minor
           - patch
           - major
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'tsconfig*.json'
+    paths-ignore:
+      - 'ios/Frameworks/**'
+      - 'android/**'
+      - 'node_modules/**'
+      - '.yarn/**'
+      - 'example/**'
+      - '.github/**'
+      - '**.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.nvmrc'
+      - '.watchmanconfig'
+      - '.yarnrc.yml'
 
 jobs:
   deploy:
@@ -46,6 +68,11 @@ jobs:
       - name: Build package
         run: yarn prepare
 
+      - name: Set default version bump for push events
+        if: github.event_name == 'push'
+        run: |
+          echo "BUMP_TYPE=patch" >> $GITHUB_ENV
+
       - name: Configure Git User
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -60,7 +87,7 @@ jobs:
           CURRENT_VERSION=$(node -p "require('./package.json').version")
 
           # Check if the next version would already exist in npm
-          BUMP_TYPE="${{ github.event.inputs.version_bump }}"
+          BUMP_TYPE="${{ github.event.inputs.version_bump || env.BUMP_TYPE }}"
           if [ "$BUMP_TYPE" = "patch" ]; then
             NEXT_VERSION=$(node -e "const v='$CURRENT_VERSION'.split('.'); v[2]++; console.log(v.join('.'))")
           elif [ "$BUMP_TYPE" = "minor" ]; then
@@ -105,8 +132,9 @@ jobs:
             }
           }' > .release-it.json
 
-          # Run release-it with the specified bump type
-          yarn release ${{ github.event.inputs.version_bump }} --ci --no-git.requireUpstream
+          # Run release-it with the specified bump type (or use the default for push events)
+          BUMP_TYPE="${{ github.event.inputs.version_bump || env.BUMP_TYPE }}"
+          yarn release $BUMP_TYPE --ci --no-git.requireUpstream
 
           # Get new version for later use
           NEW_VERSION=$(node -p "require('./package.json').version")
