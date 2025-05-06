@@ -57,6 +57,22 @@ RCT_EXPORT_METHOD(checkAccessStatus:(RCTPromiseResolveBlock)resolve
     resolve(@(status));
 }
 
+RCT_EXPORT_METHOD(hasContactsReadAccess:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    NSLog(@"RNContactsAuthorizationService: hasContactsReadAccess called");
+
+    Class authServiceClass = NSClassFromString(@"CMContactsAuthorizationService");
+    if (!authServiceClass) {
+        NSLog(@"RNContactsAuthorizationService: CMContactsAuthorizationService class not found!");
+        reject(@"contacts_manager_error", @"CMContactsAuthorizationService class not found", nil);
+        return;
+    }
+
+    BOOL hasAccess = [[CMContactsAuthorizationService sharedInstance] hasContactsReadAccess];
+    resolve(@(hasAccess));
+}
+
 RCT_EXPORT_METHOD(shouldShowSettingsAlert:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {

@@ -1,85 +1,84 @@
-# contactsmanager-rn
+# @contactsmanager/rn
 
-A React Native module for accessing and managing contacts with built-in privacy features.
+Add powerful contact management and social features to your React Native app with minimal code.
 
-## Installation
+## 1. Installation
 
 ```sh
-npm install contactsmanager-rn
+npm install @contactsmanager/rn
 # or
-yarn add contactsmanager-rn
+yarn add @contactsmanager/rn
 ```
 
-## iOS Setup
+## 2. SDK Setup
 
-This module includes the `ContactsManagerObjc.xcframework` which is automatically integrated into your project when you install it.
+1. Create a free API key from [contactsmanager.io](https://www.contactsmanager.io)
+2. Generate an authentication token from your backend server (see [documentation](https://docs.contactsmanager.io/quickstart) for details)
+3. Initialize the SDK in your app with the token
 
-### 1. Install CocoaPods dependencies
+```js
+import { ContactsManager } from '@contactsmanager/rn';
+
+// Initialize with your API key and token from server
+await ContactsManager.initialize({
+  apiKey: 'your-api-key',
+  token: 'user-auth-token',
+  userInfo: {
+    userId: 'unique-user-id',
+    email: 'user@example.com', // optional
+    phone: '+15551234567', // optional
+    fullName: 'User Name', // optional
+  },
+});
+```
+
+## 3. Platform Setup
+
+### iOS Setup
+
+The package includes the `ContactsManagerObjc.xcframework` that is automatically integrated into your project.
+
+1. Install CocoaPods dependencies:
 
 ```sh
 cd ios && pod install && cd ..
 ```
 
-That's it! The XCFramework should be automatically linked and ready to use.
+2. Add the necessary permissions to your `Info.plist`:
 
-### Troubleshooting
-
-If you encounter any issues with the framework installation:
-
-#### Option 1: Verify framework location
-
-The framework should be automatically installed in:
-
-- `node_modules/contactsmanager-rn/ios/Frameworks/ContactsManagerObjc.xcframework`
-
-#### Option 2: Manual framework fix
-
-If you're experiencing issues with the framework, you can run our fix script:
-
-```sh
-cd ios
-chmod +x ../node_modules/contactsmanager-rn/fix_xcframework.sh
-../node_modules/contactsmanager-rn/fix_xcframework.sh
-pod install
+```xml
+<key>NSContactsUsageDescription</key>
+<string>We need access to your contacts to enable social features</string>
 ```
 
-#### Option 3: Manual Xcode linking
+### Android Setup
 
-As a last resort, you can manually add the framework in Xcode:
+Android support is coming soon! Check our [documentation](https://docs.contactsmanager.io/quickstart) for updates.
 
-1. Open your project in Xcode
-2. Select your target's "General" settings tab
-3. Scroll to "Frameworks, Libraries, and Embedded Content"
-4. Click the "+" button
-5. Select "Add Other..." and choose "Add Files..."
-6. Navigate to `node_modules/contactsmanager-rn/ios/Frameworks/ContactsManagerObjc.xcframework`
-7. Make sure to select "Embed & Sign"
-
-## Android Setup
-
-Android implementation is currently in progress.
-
-## Usage
+## 4. Basic Usage
 
 ```js
 import {
   requestContactsAccess,
+  hasContactsReadAccess,
   getContacts,
-  ContactsAccessStatus,
-} from 'contactsmanager-rn';
+} from '@contactsmanager/rn';
 
 // Request access to contacts
 const requestAccess = async () => {
   try {
-    const { granted, status } = await requestContactsAccess();
+    // Request access - handles both full and limited access cases
+    const { granted } = await requestContactsAccess();
 
     if (granted) {
-      console.log('Access granted with status:', status);
-      // Fetch contacts
-      const contacts = await getContacts();
-      console.log(`Retrieved ${contacts.length} contacts`);
-    } else {
-      console.log('Access denied with status:', status);
+      // Check if we have read access (either full or limited authorization)
+      const hasReadAccess = await hasContactsReadAccess();
+
+      if (hasReadAccess) {
+        // Fetch contacts
+        const contacts = await getContacts();
+        console.log(`Retrieved ${contacts.length} contacts`);
+      }
     }
   } catch (error) {
     console.error('Error accessing contacts:', error);
@@ -89,67 +88,13 @@ const requestAccess = async () => {
 
 ## API Reference
 
-### `requestContactsAccess()`
+For complete API documentation, please visit:
+[https://docs.contactsmanager.io/quickstart](https://docs.contactsmanager.io/quickstart)
 
-Requests access to the user's contacts. Returns a Promise that resolves to an object with:
+## Get a Free Demo
 
-- `granted`: boolean - Whether access was granted
-- `status`: ContactsAccessStatus - The current access status
-
-### `getContacts()`
-
-Fetches the user's contacts. Returns a Promise that resolves to an array of Contact objects.
-
-### Types
-
-```typescript
-enum ContactsAccessStatus {
-  NotDetermined = 0,
-  Authorized = 1,
-  LimitedAuthorized = 2,
-  Denied = 3,
-  Restricted = 4,
-}
-
-type PhoneNumber = {
-  label: string;
-  number: string;
-};
-
-type EmailAddress = {
-  label: string;
-  email: string;
-};
-
-type Contact = {
-  contactId: string;
-  displayName: string;
-  givenName: string;
-  familyName: string;
-  phoneNumbers: PhoneNumber[];
-  emailAddresses: EmailAddress[];
-  thumbnailImageData?: string;
-};
-```
-
-## Troubleshooting
-
-### Module is undefined in React Native
-
-If you're getting errors about the native module being undefined:
-
-1. Make sure you've run `pod install` in the ios directory
-2. Check that the framework is in the correct location
-3. Try the fix script mentioned in the iOS Setup section
-4. If all else fails, manually add the framework in Xcode
-
-### PhaseScriptExecution failed with a nonzero exit code
-
-This usually means the framework can't be found during the build process. Check:
-
-1. The path to the framework in the script phase
-2. Make sure both simulator and device slices are available in the xcframework
-3. Try the fix script mentioned above
+Interested in learning more? Get a free demo setup via:
+[https://www.contactsmanager.io/demo](https://www.contactsmanager.io/demo)
 
 ## License
 

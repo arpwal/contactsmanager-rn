@@ -23,6 +23,15 @@ export function checkAccessStatus(): Promise<number> {
 }
 
 /**
+ * Check if the app has read access to contacts (either authorized or limited)
+ * @returns Promise resolving to a boolean indicating if read access is available
+ */
+export function hasContactsReadAccess(): Promise<boolean> {
+  console.log('Checking if app has contacts read access...');
+  return RNContactsAuthorizationService.hasContactsReadAccess();
+}
+
+/**
  * Check if the settings alert should be shown to the user
  * @returns Promise resolving to a boolean
  */
@@ -34,6 +43,7 @@ export function shouldShowSettingsAlert(): Promise<boolean> {
 export const ContactsAuthorizationService = {
   requestContactsAccess,
   checkAccessStatus,
+  hasContactsReadAccess,
   shouldShowSettingsAlert,
 };
 
