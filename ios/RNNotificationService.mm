@@ -84,9 +84,9 @@ RCT_EXPORT_METHOD(subscribeToEvent:(NSString *)eventType
 
   @try {
     // Create a weakSelf reference to avoid retain cycles
-    __weak typeof(self) weakSelf = self;
+    __weak RNNotificationService *weakSelf = self;
 
-    [[CMEventWrapperService sharedInstance] subscribeToEvent:[eventValue integerValue]
+    [[CMEventWrapperService sharedInstance] subscribeToEvent:(CMContactsManagerEvent)[eventValue integerValue]
                                              withIdentifier:identifier
                                                     handler:^{
       // This handler will be called when the event occurs
@@ -117,7 +117,7 @@ RCT_EXPORT_METHOD(unsubscribeFromEvent:(NSString *)eventType
   }
 
   @try {
-    [[CMEventWrapperService sharedInstance] unsubscribeFromEvent:[eventValue integerValue]
+    [[CMEventWrapperService sharedInstance] unsubscribeFromEvent:(CMContactsManagerEvent)[eventValue integerValue]
                                                  withIdentifier:identifier];
     resolve(@(YES));
   } @catch (NSException *exception) {
