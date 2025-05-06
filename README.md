@@ -8,6 +8,10 @@ I built ContactsManager after my experiences at companies like Facebook, Google,
 
 With ContactsManager, you can build all the engaging features that platforms like Facebook, Instagram, and LinkedIn offer, but with a crucial difference: user contact data stays on their devices only. This prevents data misuse while enabling viral growth through genuine connections. Build social features into your app with just a few lines of code, all while preserving the privacy of your users and their contacts.
 
+## Status
+
+> **BETA** - The SDK is currently in beta and is being actively updated. If you have any feature requests, please submit them at [contactsmanager.canny.io/feature-requests](https://contactsmanager.canny.io/feature-requests).
+
 ## Key Features
 
 | Feature                     | Description                                                                      | Documentation                                                                             |
@@ -28,6 +32,16 @@ With ContactsManager, you can build all the engaging features that platforms lik
 npm install @contactsmanager/rn
 # or
 yarn add @contactsmanager/rn
+```
+
+### Keeping the SDK Up-to-Date
+
+To update to the latest version of the SDK, run:
+
+```sh
+yarn upgrade @contactsmanager/rn --latest
+# or
+npm update @contactsmanager/rn
 ```
 
 ## 2. SDK Setup
@@ -121,5 +135,3 @@ Interested in learning more? Get a free demo setup via:
 MIT
 
 ---
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
