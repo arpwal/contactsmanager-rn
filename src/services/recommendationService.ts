@@ -26,61 +26,60 @@ export enum RecommendationType {
 }
 
 /**
- * Service for contact recommendations
+ * Get contacts you might want to invite to the app
+ * @param limit Maximum number of recommendations to return
+ * @returns Promise with array of contact recommendations
  */
-export class RecommendationService {
-  /**
-   * Get contacts you might want to invite to the app
-   * @param limit Maximum number of recommendations to return
-   * @returns Promise with array of contact recommendations
-   */
-  static async getInviteRecommendations(
-    limit: number = 10
-  ): Promise<ContactRecommendation[]> {
-    try {
-      return await RNRecommendationService.getInviteRecommendations(limit);
-    } catch (error) {
-      console.error('Failed to get invite recommendations:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Get contacts who are already using the app
-   * @param limit Maximum number of recommendations to return
-   * @returns Promise with array of contact recommendations
-   */
-  static async getContactsUsingApp(
-    limit: number = 10
-  ): Promise<ContactRecommendation[]> {
-    try {
-      return await RNRecommendationService.getContactsUsingApp(limit);
-    } catch (error) {
-      console.error('Failed to get contacts using app:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Get users you might know based on your network
-   * @param limit Maximum number of users to return
-   * @returns Promise with array of canonical contacts
-   */
-  static async getUsersYouMightKnow(
-    limit: number = 10
-  ): Promise<CanonicalContact[]> {
-    try {
-      return await RNRecommendationService.getUsersYouMightKnow(limit);
-    } catch (error) {
-      console.error('Failed to get users you might know:', error);
-      throw error;
-    }
+export async function getInviteRecommendations(
+  limit: number = 10
+): Promise<ContactRecommendation[]> {
+  try {
+    return await RNRecommendationService.getInviteRecommendations(limit);
+  } catch (error) {
+    console.error('Failed to get invite recommendations:', error);
+    throw error;
   }
 }
 
-// Export individual functions for direct use
-export const {
+/**
+ * Get contacts who are already using the app
+ * @param limit Maximum number of recommendations to return
+ * @returns Promise with array of contact recommendations
+ */
+export async function getContactsUsingApp(
+  limit: number = 10
+): Promise<ContactRecommendation[]> {
+  try {
+    return await RNRecommendationService.getContactsUsingApp(limit);
+  } catch (error) {
+    console.error('Failed to get contacts using app:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get users you might know based on your network
+ * @param limit Maximum number of users to return
+ * @returns Promise with array of canonical contacts
+ */
+export async function getUsersYouMightKnow(
+  limit: number = 10
+): Promise<CanonicalContact[]> {
+  try {
+    return await RNRecommendationService.getUsersYouMightKnow(limit);
+  } catch (error) {
+    console.error('Failed to get users you might know:', error);
+    throw error;
+  }
+}
+
+// Export the service object
+export const RecommendationService = {
   getInviteRecommendations,
   getContactsUsingApp,
   getUsersYouMightKnow,
-} = RecommendationService;
+  RecommendationType,
+};
+
+// For debugging
+console.log('RNRecommendationService:', RNRecommendationService);

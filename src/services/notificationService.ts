@@ -15,82 +15,78 @@ export enum NotificationEventType {
 }
 
 /**
- * Service for handling notification and event subscriptions
+ * Start observing system events and notifications
+ * @returns Promise that resolves when observation has started
  */
-export class NotificationService {
-  /**
-   * Start observing system events and notifications
-   * @returns Promise that resolves when observation has started
-   */
-  static async startObserving(): Promise<boolean> {
-    try {
-      return await RNNotificationService.startObserving();
-    } catch (error) {
-      console.error('Failed to start notification observer:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Stop observing system events and notifications
-   * @returns Promise that resolves when observation has stopped
-   */
-  static async stopObserving(): Promise<boolean> {
-    try {
-      return await RNNotificationService.stopObserving();
-    } catch (error) {
-      console.error('Failed to stop notification observer:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * Subscribe to a specific event type
-   * @param eventType The type of event to subscribe to
-   * @param identifier Unique identifier for this subscription
-   * @returns Promise that resolves when subscription is successful
-   */
-  static async subscribeToEvent(
-    eventType: NotificationEventType,
-    identifier: string
-  ): Promise<boolean> {
-    try {
-      return await RNNotificationService.subscribeToEvent(
-        eventType,
-        identifier
-      );
-    } catch (error) {
-      console.error(`Failed to subscribe to ${eventType} event:`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Unsubscribe from a specific event type
-   * @param eventType The type of event to unsubscribe from
-   * @param identifier The unique identifier used during subscription
-   * @returns Promise that resolves when unsubscription is successful
-   */
-  static async unsubscribeFromEvent(
-    eventType: NotificationEventType,
-    identifier: string
-  ): Promise<boolean> {
-    try {
-      return await RNNotificationService.unsubscribeFromEvent(
-        eventType,
-        identifier
-      );
-    } catch (error) {
-      console.error(`Failed to unsubscribe from ${eventType} event:`, error);
-      throw error;
-    }
+export async function startObserving(): Promise<boolean> {
+  try {
+    return await RNNotificationService.startObserving();
+  } catch (error) {
+    console.error('Failed to start notification observer:', error);
+    throw error;
   }
 }
 
-// Export individual functions for direct use
-export const {
+/**
+ * Stop observing system events and notifications
+ * @returns Promise that resolves when observation has stopped
+ */
+export async function stopObserving(): Promise<boolean> {
+  try {
+    return await RNNotificationService.stopObserving();
+  } catch (error) {
+    console.error('Failed to stop notification observer:', error);
+    throw error;
+  }
+}
+
+/**
+ * Subscribe to a specific event type
+ * @param eventType The type of event to subscribe to
+ * @param identifier Unique identifier for this subscription
+ * @returns Promise that resolves when subscription is successful
+ */
+export async function subscribeToEvent(
+  eventType: NotificationEventType,
+  identifier: string
+): Promise<boolean> {
+  try {
+    return await RNNotificationService.subscribeToEvent(eventType, identifier);
+  } catch (error) {
+    console.error(`Failed to subscribe to ${eventType} event:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Unsubscribe from a specific event type
+ * @param eventType The type of event to unsubscribe from
+ * @param identifier The unique identifier used during subscription
+ * @returns Promise that resolves when unsubscription is successful
+ */
+export async function unsubscribeFromEvent(
+  eventType: NotificationEventType,
+  identifier: string
+): Promise<boolean> {
+  try {
+    return await RNNotificationService.unsubscribeFromEvent(
+      eventType,
+      identifier
+    );
+  } catch (error) {
+    console.error(`Failed to unsubscribe from ${eventType} event:`, error);
+    throw error;
+  }
+}
+
+// Export the service object
+export const NotificationService = {
   startObserving,
   stopObserving,
   subscribeToEvent,
   unsubscribeFromEvent,
-} = NotificationService;
+  NotificationEventType,
+};
+
+// For debugging
+console.log('RNNotificationService:', RNNotificationService);
