@@ -5,25 +5,20 @@ import type { Contact, ContactFieldType, UserInfo } from '../types';
 const { RNContactService } = NativeModules;
 
 /**
+ * Contact data restriction types
+ */
+export enum ContactDataRestriction {
+  Notes = 0,
+}
+
+/**
  * Interface for contactsService options
  */
 interface ContactsManagerOptions {
-  cacheEnabled?: boolean;
-  cacheTTL?: number;
-  sortOrder?: string;
-  groupBySource?: boolean;
-  includeDeleted?: boolean;
-  maxResults?: number;
-  searchFuzzyMatching?: boolean;
-  syncEnabled?: boolean;
-  syncInterval?: number;
-  autoMergeContacts?: boolean;
-  mergeThreshold?: number;
-  storageEncryption?: boolean;
-  debug?: boolean;
-  logLevel?: string;
-  analytics?: boolean;
-  crashReporting?: boolean;
+  /**
+   * Array of contact data fields that should not be fetched
+   */
+  restrictedKeysToFetch?: ContactDataRestriction[];
 }
 
 /**

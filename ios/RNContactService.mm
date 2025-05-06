@@ -11,7 +11,7 @@ RCT_EXPORT_METHOD(initialize:(NSString *)apiKey
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSLog(@"RNContactService: initialize called");
+    NSLog(@"RNContactService: initialize called with userInfo: %@", userInfoDict);
 
     // Create CMUserInfo from dictionary
     Class userInfoClass = NSClassFromString(@"CMUserInfo");
@@ -21,15 +21,21 @@ RCT_EXPORT_METHOD(initialize:(NSString *)apiKey
     }
 
     NSString *userId = userInfoDict[@"userId"];
-    NSString *fullName = userInfoDict[@"fullName"];
-    NSString *email = userInfoDict[@"email"];
-    NSString *phone = userInfoDict[@"phone"];
-    NSString *avatarUrl = userInfoDict[@"avatarUrl"];
-    NSDictionary *metadata = userInfoDict[@"metadata"];
-
-    if (!userId) {
-        reject(@"init_error", @"userId is required", nil);
+    if (!userId || [userId isKindOfClass:[NSNull class]]) {
+        reject(@"init_error", @"userId is required and cannot be null", nil);
         return;
+    }
+
+    // Safely get optional values, ensuring they're not NSNull
+    NSString *fullName = [userInfoDict[@"fullName"] isKindOfClass:[NSNull class]] ? nil : userInfoDict[@"fullName"];
+    NSString *email = [userInfoDict[@"email"] isKindOfClass:[NSNull class]] ? nil : userInfoDict[@"email"];
+    NSString *phone = [userInfoDict[@"phone"] isKindOfClass:[NSNull class]] ? nil : userInfoDict[@"phone"];
+    NSString *avatarUrl = [userInfoDict[@"avatarUrl"] isKindOfClass:[NSNull class]] ? nil : userInfoDict[@"avatarUrl"];
+
+    // For metadata, ensure we create a valid dictionary with no nil values
+    NSDictionary *metadata = nil;
+    if (userInfoDict[@"metadata"] && ![userInfoDict[@"metadata"] isKindOfClass:[NSNull class]]) {
+        metadata = userInfoDict[@"metadata"];
     }
 
     CMUserInfo *userInfo = [[userInfoClass alloc] initWithUserId:userId
@@ -41,11 +47,28 @@ RCT_EXPORT_METHOD(initialize:(NSString *)apiKey
 
     // Create options object if provided
     CMContactsManagerOptions *options = nil;
-    if (optionsDict) {
+
+    if (optionsDict && ![optionsDict isKindOfClass:[NSNull class]]) {
         Class optionsClass = NSClassFromString(@"CMContactsManagerOptions");
         if (optionsClass) {
-            options = [[optionsClass alloc] init];
-            // Set options properties as needed
+            // Default options if no restricted keys
+            options = [optionsClass defaultOptions];
+
+            // Check for restricted keys
+            NSArray *restrictedKeys = optionsDict[@"restrictedKeysToFetch"];
+            if (restrictedKeys && ![restrictedKeys isKindOfClass:[NSNull class]] && [restrictedKeys isKindOfClass:[NSArray class]] && restrictedKeys.count > 0) {
+                NSMutableSet *restrictedKeysSet = [NSMutableSet new];
+
+                for (NSNumber *restriction in restrictedKeys) {
+                    if ([restriction isKindOfClass:[NSNumber class]]) {
+                        [restrictedKeysSet addObject:restriction];
+                    }
+                }
+
+                if (restrictedKeysSet.count > 0) {
+                    options = [[optionsClass alloc] initWithRestrictedKeysToFetch:restrictedKeysSet];
+                }
+            }
         }
     }
 
