@@ -2,6 +2,26 @@
 
 Add powerful contact management and social features to your React Native app with minimal code.
 
+## Purpose
+
+I built ContactsManager after my experiences at companies like Facebook, Google, and startups where I witnessed firsthand the challenges of building truly engaging social products. My vision is to give developers the tools to create authentic social experiences while maintaining the highest standards of privacy and security.
+
+With ContactsManager, you can build all the engaging features that platforms like Facebook, Instagram, and LinkedIn offer, but with a crucial difference: user contact data stays on their devices only. This prevents data misuse while enabling viral growth through genuine connections. Build social features into your app with just a few lines of code, all while preserving the privacy of your users and their contacts.
+
+## Key Features
+
+| Feature                     | Description                                                                      | Documentation                                                                             |
+| --------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [Follow Contacts](#)        | Enable users to follow others and receive their updates                          | [Social Features](https://docs.contactsmanager.io/features/social-features)               |
+| [Activity Feeds](#)         | Build chronological feeds of user activities and interactions                    | [Social Features](https://docs.contactsmanager.io/features/social-features)               |
+| [Friend Recommendations](#) | Discover users who might be real-world connections without sharing contact lists | [Friend Recommendations](https://docs.contactsmanager.io/features/friend-recommendations) |
+| [Contact Search](#)         | Multi-field search across names, phones, emails with fuzzy matching              | [Contacts Search](https://docs.contactsmanager.io/features/contacts-search)               |
+| [App User Discovery](#)     | Identify which contacts are already using your application                       | [Friend Recommendations](https://docs.contactsmanager.io/features/friend-recommendations) |
+| [Offline Support](#)        | Full functionality even without internet connectivity                            | [Offline Functionality](https://docs.contactsmanager.io/features/offline-functionality)   |
+| [Privacy Protection](#)     | Military-grade encryption and local processing of contact data                   | [Privacy By Design](https://docs.contactsmanager.io/features/privacy-by-design)           |
+
+[View all features and documentation →](https://docs.contactsmanager.io/quickstart)
+
 ## 1. Installation
 
 ```sh
