@@ -98,10 +98,10 @@ typedef NS_ENUM(NSInteger, CMRecommendationType) {
 /**
  * Get contacts who are also using the app
  * @param limit Maximum number of recommendations to return (default: 30)
- * @param completion Callback with the array of recommendations or an error
+ * @param completion Callback with the array of local canonical contacts or an error
  */
 - (void)getContactsUsingAppWithLimit:(NSInteger)limit
-                          completion:(void (^)(NSArray<CMContactRecommendation *> * _Nullable recommendations, NSError * _Nullable error))completion;
+                          completion:(void (^)(NSArray<CMLocalCanonicalContact *> * _Nullable contacts, NSError * _Nullable error))completion;
 
 /**
  * Get users that the current user might know based on matching phone numbers or email addresses
