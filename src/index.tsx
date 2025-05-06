@@ -84,6 +84,41 @@ export {
   quickSearch,
 } from './services/contactsSearchService';
 
+export {
+  NotificationService,
+  NotificationEventType,
+  startObserving,
+  stopObserving,
+  subscribeToEvent,
+  unsubscribeFromEvent,
+} from './services/notificationService';
+
+export {
+  SocialService,
+  followUser,
+  unfollowUser,
+  isFollowingUser,
+  getFollowers,
+  getFollowing,
+  getMutualFollows,
+  createEvent,
+  getEvent,
+  updateEvent,
+  deleteEvent,
+  getUserEvents,
+  getFeed,
+  getUpcomingEvents,
+  getForYouFeed,
+} from './services/socialService';
+
+export {
+  RecommendationService,
+  RecommendationType,
+  getInviteRecommendations,
+  getContactsUsingApp,
+  getUsersYouMightKnow,
+} from './services/recommendationService';
+
 // Also re-export from the services index for backward compatibility
 export * from './services';
 
@@ -100,6 +135,9 @@ console.log('ContactsmanagerRn modules:', {
   RNContactsManager: NativeModules.RNContactsManager,
   RNContactService: NativeModules.RNContactService,
   RNContactSearchService: NativeModules.RNContactSearchService,
+  RNNotificationService: NativeModules.RNNotificationService,
+  RNSocialService: NativeModules.RNSocialService,
+  RNRecommendationService: NativeModules.RNRecommendationService,
 });
 
 // Create proxies for native modules to handle errors gracefully
@@ -140,6 +178,39 @@ export const RNContactService = NativeModules.RNContactService
 
 export const RNContactSearchService = NativeModules.RNContactSearchService
   ? NativeModules.RNContactSearchService
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
+
+export const RNNotificationService = NativeModules.RNNotificationService
+  ? NativeModules.RNNotificationService
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
+
+export const RNSocialService = NativeModules.RNSocialService
+  ? NativeModules.RNSocialService
+  : new Proxy(
+      {},
+      {
+        get() {
+          throw new Error(LINKING_ERROR);
+        },
+      }
+    );
+
+export const RNRecommendationService = NativeModules.RNRecommendationService
+  ? NativeModules.RNRecommendationService
   : new Proxy(
       {},
       {
