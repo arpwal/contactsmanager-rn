@@ -44,6 +44,12 @@ typedef NS_ENUM(NSInteger, ContactsAccessStatus) {
 - (ContactsAccessStatus)checkAccessStatus;
 
 /**
+ * Checks if the app has read access to contacts (either authorized or limited)
+ * @return YES if the app has read access to contacts, NO otherwise
+ */
+- (BOOL)hasContactsReadAccess;
+
+/**
  * Determines whether settings alert should be shown to the user
  * @return YES if the alert should be shown, NO otherwise
  */
