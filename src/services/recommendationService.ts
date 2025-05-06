@@ -17,6 +17,16 @@ export interface ContactRecommendation {
 }
 
 /**
+ * Represents a contact that exists both locally on device and in the canonical contacts system
+ */
+export interface LocalCanonicalContact {
+  contact: Contact | null;
+  contactId: string;
+  sourceContactId: string;
+  canonicalContact: CanonicalContact;
+}
+
+/**
  * Types of contact recommendations
  */
 export enum RecommendationType {
@@ -43,12 +53,12 @@ export async function getInviteRecommendations(
 
 /**
  * Get contacts who are already using the app
- * @param limit Maximum number of recommendations to return
- * @returns Promise with array of contact recommendations
+ * @param limit Maximum number of contacts to return
+ * @returns Promise with array of local canonical contacts
  */
 export async function getContactsUsingApp(
   limit: number = 10
-): Promise<ContactRecommendation[]> {
+): Promise<LocalCanonicalContact[]> {
   try {
     return await RNRecommendationService.getContactsUsingApp(limit);
   } catch (error) {

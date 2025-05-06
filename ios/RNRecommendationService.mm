@@ -45,19 +45,19 @@ RCT_EXPORT_METHOD(getContactsUsingApp:(NSInteger)limit
         return;
     }
 
-    [recommendationService getContactsUsingAppWithLimit:limit completion:^(NSArray<CMContactRecommendation *> * _Nullable recommendations, NSError * _Nullable error) {
+    [recommendationService getContactsUsingAppWithLimit:limit completion:^(NSArray<CMLocalCanonicalContact *> * _Nullable contacts, NSError * _Nullable error) {
         if (error) {
             reject(@"recommendation_error", error.localizedDescription, error);
             return;
         }
 
-        NSMutableArray *recommendationsArray = [NSMutableArray new];
-        for (CMContactRecommendation *recommendation in recommendations) {
-            NSDictionary *recommendationDict = [self recommendationToDictionary:recommendation];
-            [recommendationsArray addObject:recommendationDict];
+        NSMutableArray *contactsArray = [NSMutableArray new];
+        for (CMLocalCanonicalContact *localContact in contacts) {
+            NSDictionary *contactDict = [self localCanonicalContactToDictionary:localContact];
+            [contactsArray addObject:contactDict];
         }
 
-        resolve(recommendationsArray);
+        resolve(contactsArray);
     }];
 }
 
@@ -196,6 +196,33 @@ RCT_EXPORT_METHOD(getUsersYouMightKnow:(NSInteger)limit
     }
 
     return result;
+}
+
+// Helper to convert CMLocalCanonicalContact to NSDictionary
+- (NSDictionary *)localCanonicalContactToDictionary:(CMLocalCanonicalContact *)localContact {
+    if (!localContact) {
+        return nil;
+    }
+
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+
+    // Add the contactId and sourceContactId
+    dict[@"contactId"] = localContact.contactId ?: @"";
+    dict[@"sourceContactId"] = localContact.sourceContactId ?: @"";
+
+    // Add the canonical contact
+    if (localContact.canonicalContact) {
+        dict[@"canonicalContact"] = [self canonicalContactToDictionary:localContact.canonicalContact];
+    }
+
+    // Add the local contact if available
+    if (localContact.contact) {
+        dict[@"contact"] = [self contactToDictionary:localContact.contact];
+    } else {
+        dict[@"contact"] = [NSNull null];
+    }
+
+    return dict;
 }
 
 @end
