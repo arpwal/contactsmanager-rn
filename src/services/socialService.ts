@@ -5,7 +5,7 @@ import type {
   PaginatedMutualFollowers,
   PaginatedEventList,
   SocialEvent,
-  EventActionResponse
+  EventActionResponse,
 } from '../types/social';
 
 // Get the native module

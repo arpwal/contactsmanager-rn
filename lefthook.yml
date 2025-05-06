@@ -17,9 +17,21 @@
 #         - security
 #       run: bundle audit
 #
-# pre-commit:
-#   parallel: true
-#   jobs:
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: linting
+      run: yarn lint
+
+    - name: type checking
+      run: yarn typecheck
+
+    - name: tests
+      run: yarn test
+
+# Examples below:
+#
 #     - run: yarn eslint {staged_files}
 #       glob: "*.{js,ts,jsx,tsx}"
 #
