@@ -11,13 +11,6 @@ export type UserInfo = {
   phone?: string;
   avatarUrl?: string;
   metadata?: Record<string, string>;
-
-  // Additional fields from existing model (preserved)
-  name?: string;
-  organizationId?: string;
-  organizationRole?: string;
-  lastLoginAt?: number;
-  userSettings?: Record<string, any>;
 };
 
 // Device Info Model
