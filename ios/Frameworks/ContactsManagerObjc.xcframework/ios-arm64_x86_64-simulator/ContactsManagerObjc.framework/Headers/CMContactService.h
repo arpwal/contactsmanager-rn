@@ -57,13 +57,19 @@ typedef void (^CMContactFetchSingleCompletionBlock)(CMContact * _Nullable contac
 /**
  * Initialize the ContactsManager SDK with API key, token, and user information
  * @param apiKey Valid API key for accessing the ContactsManager API
- * @param token Authentication token for the user
+ * @param token Authentication token for the user. 
+ *              ⚠️ IMPORTANT: For enhanced security, we strongly recommend generating tokens server-side.
+ *              Please visit https://docs.contactsmanager.io/services/token-generation#implementation-examples
+ *              for implementation examples and best practices.
+ *              
+ *              You can pass nil for the token parameter to have the SDK generate a client-side,
+ *              but this is NOT recommended for production as it may expose your API credentials.
  * @param userInfo User information for identification and personalization
  * @param options Additional configuration options
  * @param completion Completion block called with success or error
  */
 - (void)initializeWithAPIKey:(NSString *)apiKey 
-                       token:(NSString *)token 
+                       token:(nullable NSString *)token 
                     userInfo:(CMUserInfo *)userInfo
                      options:(nullable CMContactsManagerOptions *)options
                   completion:(void (^)(BOOL success, NSError * _Nullable error))completion;

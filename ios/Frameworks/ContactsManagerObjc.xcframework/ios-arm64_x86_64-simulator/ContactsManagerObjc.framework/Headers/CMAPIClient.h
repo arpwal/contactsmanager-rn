@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CMContactService;
 
+// API Client Constants
+extern NSString * const kCMAPIClientUserDefaultsAPIKey;
+
 /**
  * API response structure
  */
@@ -106,6 +109,23 @@ NS_ASSUME_NONNULL_BEGIN
  * Refresh authentication token
  */
 - (void)refreshTokenWithCompletionHandler:(void (^)(NSString * _Nullable token, NSError * _Nullable error))completion;
+
+/**
+ * Refresh authentication token with API key
+ * @param apiKey Optional API key to use for token generation
+ * @param completion Block called when token refresh completes
+ */
+- (void)refreshTokenWithAPIKey:(nullable NSString *)apiKey
+             completionHandler:(void (^)(NSString * _Nullable token, NSError * _Nullable error))completion;
+
+/**
+ * Generate authentication token using API key (client-side)
+ * @warning This method displays a security warning as it's recommended to generate tokens server-side
+ * @param apiKey API key to use for token generation
+ * @param completion Block called when token generation completes
+ */
+- (void)generateTokenForAPIKey:(NSString *)apiKey
+             completionHandler:(void (^)(NSString * _Nullable token, NSError * _Nullable error))completion;
 
 /**
  * Create a contact source
