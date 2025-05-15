@@ -129,8 +129,8 @@ object ContactsConverter {
     fun localCanonicalContactToJS(contact: LocalCanonicalContact): WritableMap {
         return Arguments.createMap().apply {
             putMap("contact", contact.contact?.let { toJS(it) } ?: Arguments.createMap())
-            putString("contactId", contact.identifier)
-            putString("sourceContactId", contact.identifier)
+            putString("contactId", contact.contactId)
+            putString("sourceContactId", contact.sourceContactId)
             putMap("canonicalContact", canonicalContactToJS(contact.canonicalContact))
         }
     }
@@ -151,16 +151,28 @@ object ContactsConverter {
      */
     fun canonicalContactToJS(contact: CanonicalContact): WritableMap {
         return Arguments.createMap().apply {
-            putString("id", contact.identifier)
-            putString("userId", contact.identifier)
-            putString("displayName", contact.identifier)
-            putString("givenName", contact.identifier)
-            putString("familyName", contact.identifier)
-            putString("username", contact.identifier)
+            putString("id", contact.id)
+            putString("organizationId", contact.organizationId)
+            putString("organizationUserId", contact.organizationUserId)
+            putString("email", contact.email)
+            putString("phone", contact.phone)
+            putString("fullName", contact.fullName)
             putString("avatarUrl", contact.avatarUrl)
-            putString("bio", contact.identifier)
-            putDouble("createdAt", System.currentTimeMillis().toDouble())
-            putDouble("updatedAt", System.currentTimeMillis().toDouble())
+            putBoolean("isActive", contact.isActive ?: false)
+            contact.contactMetadata?.let { metadata ->
+                putMap("contactMetadata", Arguments.createMap().apply {
+                    metadata.forEach { (key, value) ->
+                        when (value) {
+                            is String -> putString(key, value)
+                            is Number -> putDouble(key, value.toDouble())
+                            is Boolean -> putBoolean(key, value)
+                            else -> putString(key, value.toString())
+                        }
+                    }
+                })
+            } ?: putNull("contactMetadata")
+            putDouble("createdAt", contact.createdAt?.time?.toDouble() ?: System.currentTimeMillis().toDouble())
+            putDouble("updatedAt", contact.updatedAt?.time?.toDouble() ?: System.currentTimeMillis().toDouble())
         }
     }
 
