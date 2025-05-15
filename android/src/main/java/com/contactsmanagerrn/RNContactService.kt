@@ -348,12 +348,10 @@ class RNContactService(private val reactContext: ReactApplicationContext) :
     }
 
     private fun readableMapToOptions(options: ReadableMap): CMContactsManagerOptions {
-        val optionsBuilder = CMContactsManagerOptions.Builder()
+        val restrictions = mutableSetOf<CMContactDataRestriction>()
 
         if (options.hasKey("dataRestrictions")) {
             val restrictionsArray = options.getArray("dataRestrictions")
-            val restrictions = mutableSetOf<CMContactDataRestriction>()
-
             restrictionsArray?.let {
                 for (i in 0 until it.size()) {
                     when (it.getString(i)?.uppercase()) {
@@ -361,22 +359,8 @@ class RNContactService(private val reactContext: ReactApplicationContext) :
                     }
                 }
             }
-
-            optionsBuilder.setDataRestrictions(restrictions)
         }
 
-        if (options.hasKey("shouldSyncDeletedContacts")) {
-            optionsBuilder.setShouldSyncDeletedContacts(options.getBoolean("shouldSyncDeletedContacts"))
-        }
-
-        if (options.hasKey("shouldSyncContactImages")) {
-            optionsBuilder.setShouldSyncContactImages(options.getBoolean("shouldSyncContactImages"))
-        }
-
-        if (options.hasKey("shouldSyncContactThumbnails")) {
-            optionsBuilder.setShouldSyncContactThumbnails(options.getBoolean("shouldSyncContactThumbnails"))
-        }
-
-        return optionsBuilder.build()
+        return CMContactsManagerOptions.create(restrictions)
     }
 }
