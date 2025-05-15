@@ -39,10 +39,40 @@ export function initialize(
 ): Promise<{ success: boolean }> {
   console.log('Initializing ContactService...');
 
-  console.log('apiKey', apiKey);
-  console.log('userInfo', userInfo);
-  console.log('token', token);
-  console.log('options', options);
+  console.log(
+    'apiKey',
+    apiKey
+      ? `${apiKey.substring(0, 4)}...${apiKey.substring(apiKey.length - 4)}`
+      : null
+  );
+  console.log(
+    'userInfo',
+    userInfo
+      ? {
+          ...Object.fromEntries(
+            Object.entries(userInfo).map(([k, v]) => [
+              k,
+              typeof v === 'string' ? `${v.substring(0, 2)}...` : '***',
+            ])
+          ),
+        }
+      : null
+  );
+  console.log(
+    'token',
+    token
+      ? `${token.substring(0, 4)}...${token.substring(token.length - 4)}`
+      : null
+  );
+  console.log(
+    'options',
+    options
+      ? {
+          ...options,
+          restrictedKeysToFetch: options.restrictedKeysToFetch?.length,
+        }
+      : null
+  );
 
   return RNContactService.initialize(
     apiKey,
