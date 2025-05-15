@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.PermissionListener
 import io.contactsmanager.api.ContactAuthorizationService
+import io.contactsmanager.api.ContactsAccessStatus
 
 class RNContactsAuthorizationService(private val reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext), PermissionListener {
@@ -21,6 +22,10 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
     fun requestContactsAccess(promise: Promise) {
         currentPromise = promise
         val service = ContactAuthorizationService.getInstance(reactContext)
+        val activity = currentActivity ?: run {
+            promise.reject("no_activity", "Activity not available")
+            return
+        }
 
         when {
             ContextCompat.checkSelfPermission(
@@ -33,8 +38,10 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
                 promise.resolve(response)
             }
             else -> {
-                reactContext.addPermissionListener(this)
-                service.requestContactsAccess()
+                reactContext.getCurrentActivity()?.requestPermissions(
+                    arrayOf(Manifest.permission.READ_CONTACTS),
+                    PERMISSION_REQUEST_CODE
+                )
             }
         }
     }

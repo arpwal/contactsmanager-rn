@@ -5,6 +5,7 @@ import io.contactsmanager.api.ContactService
 import io.contactsmanager.api.models.CMContactFieldType
 import io.contactsmanager.api.models.CMContactsManagerOptions
 import io.contactsmanager.api.models.CMUserInfo
+import io.contactsmanager.api.models.CMContactDataRestriction
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -334,58 +335,48 @@ class RNContactService(private val reactContext: ReactApplicationContext) :
 
     private fun readableMapToUserInfo(userInfo: ReadableMap): CMUserInfo {
         return CMUserInfo(
-            id = userInfo.getString("id") ?: "",
-            displayName = userInfo.getString("displayName") ?: "",
-            givenName = userInfo.getString("givenName"),
-            familyName = userInfo.getString("familyName"),
-            phoneNumber = userInfo.getString("phoneNumber"),
-            username = userInfo.getString("username"),
-            avatarUrl = userInfo.getString("avatarUrl"),
-            bio = userInfo.getString("bio")
+            userId = userInfo.getString("userId") ?: throw IllegalArgumentException("userId is required"),
+            fullName = if (userInfo.hasKey("fullName")) userInfo.getString("fullName") else null,
+            email = if (userInfo.hasKey("email")) userInfo.getString("email") else null,
+            phone = if (userInfo.hasKey("phone")) userInfo.getString("phone") else null,
+            avatarUrl = if (userInfo.hasKey("avatarUrl")) userInfo.getString("avatarUrl") else null,
+            metadata = if (userInfo.hasKey("metadata")) {
+                val metadataMap = userInfo.getMap("metadata")
+                metadataMap?.toHashMap()?.mapValues { it.value.toString() }
+            } else null
         )
     }
 
     private fun readableMapToOptions(options: ReadableMap): CMContactsManagerOptions {
-        val builder = CMContactsManagerOptions.Builder()
+        val optionsBuilder = CMContactsManagerOptions.Builder()
 
-        // Handle data restrictions
         if (options.hasKey("dataRestrictions")) {
             val restrictionsArray = options.getArray("dataRestrictions")
             val restrictions = mutableSetOf<CMContactDataRestriction>()
 
             restrictionsArray?.let {
                 for (i in 0 until it.size()) {
-                    when (it.getInt(i)) {
-                        0 -> restrictions.add(CMContactDataRestriction.NONE)
-                        1 -> restrictions.add(CMContactDataRestriction.PHONE_NUMBERS)
-                        2 -> restrictions.add(CMContactDataRestriction.EMAIL_ADDRESSES)
-                        3 -> restrictions.add(CMContactDataRestriction.POSTAL_ADDRESSES)
-                        4 -> restrictions.add(CMContactDataRestriction.DATES)
-                        5 -> restrictions.add(CMContactDataRestriction.SOCIAL_PROFILES)
-                        6 -> restrictions.add(CMContactDataRestriction.INSTANT_MESSAGE_ADDRESSES)
-                        7 -> restrictions.add(CMContactDataRestriction.URL_ADDRESSES)
-                        8 -> restrictions.add(CMContactDataRestriction.RELATIONS)
-                        9 -> restrictions.add(CMContactDataRestriction.NOTES)
+                    when (it.getString(i)?.uppercase()) {
+                        "NOTES" -> restrictions.add(CMContactDataRestriction.NOTES)
                     }
                 }
             }
 
-            builder.setDataRestrictions(restrictions)
+            optionsBuilder.setDataRestrictions(restrictions)
         }
 
-        // Handle other options
         if (options.hasKey("shouldSyncDeletedContacts")) {
-            builder.setShouldSyncDeletedContacts(options.getBoolean("shouldSyncDeletedContacts"))
+            optionsBuilder.setShouldSyncDeletedContacts(options.getBoolean("shouldSyncDeletedContacts"))
         }
 
         if (options.hasKey("shouldSyncContactImages")) {
-            builder.setShouldSyncContactImages(options.getBoolean("shouldSyncContactImages"))
+            optionsBuilder.setShouldSyncContactImages(options.getBoolean("shouldSyncContactImages"))
         }
 
         if (options.hasKey("shouldSyncContactThumbnails")) {
-            builder.setShouldSyncContactThumbnails(options.getBoolean("shouldSyncContactThumbnails"))
+            optionsBuilder.setShouldSyncContactThumbnails(options.getBoolean("shouldSyncContactThumbnails"))
         }
 
-        return builder.build()
+        return optionsBuilder.build()
     }
 }
