@@ -1,18 +1,17 @@
 package com.contactsmanagerrn
 
-import android.app.Activity
+import android.Manifest
 import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.facebook.react.bridge.*
-import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.modules.core.PermissionListener
-import io.contactsmanager.api.ContactAuthorizationService
-import io.contactsmanager.api.ContactsAccessStatus
+import io.contactsmanager.api.ContactsAuthorizationService
 
 class RNContactsAuthorizationService(private val reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext), PermissionListener {
 
-    private var pendingPromise: Promise? = null
-    private val PERMISSION_REQUEST_CODE = 1001
+    private var currentPromise: Promise? = null
+    private val PERMISSION_REQUEST_CODE = 1
 
     override fun getName(): String {
         return "RNContactsAuthorizationService"
@@ -20,44 +19,43 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
 
     @ReactMethod
     fun requestContactsAccess(promise: Promise) {
-        val activity = currentActivity ?: run {
-            val response = Arguments.createMap().apply {
-                putBoolean("granted", false)
-                putInt("status", 0) // Equivalent to ContactsAccessStatusNotDetermined
-                putString("error", "Activity not available")
+        currentPromise = promise
+        val service = ContactsAuthorizationService.getInstance(reactContext)
+
+        when {
+            ContextCompat.checkSelfPermission(
+                reactContext,
+                Manifest.permission.READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                val response = Arguments.createMap().apply {
+                    putBoolean("granted", true)
+                }
+                promise.resolve(response)
             }
-            promise.resolve(response)
-            return
-        }
-
-        pendingPromise = promise
-
-        val authService = ContactAuthorizationService.getInstance(reactContext)
-        authService.requestAccess(activity) { status, exception ->
-            val granted = status == ContactsAccessStatus.AUTHORIZED ||
-                         status == ContactsAccessStatus.LIMITED_AUTHORIZED
-
-            val response = Arguments.createMap().apply {
-                putBoolean("granted", granted)
-                putInt("status", status.ordinal)
-                exception?.let { putString("error", it.message) }
+            else -> {
+                reactContext.addPermissionListener(this)
+                service.requestContactsAccess()
             }
-
-            pendingPromise?.resolve(response)
-            pendingPromise = null
         }
     }
 
     @ReactMethod
+    fun contactsAccessStatus(promise: Promise) {
+        val service = ContactsAuthorizationService.getInstance(reactContext)
+        val status = service.contactsAccessStatus()
+        promise.resolve(status.ordinal)
+    }
+
+    @ReactMethod
     fun checkAccessStatus(promise: Promise) {
-        val authService = ContactAuthorizationService.getInstance(reactContext)
+        val authService = ContactsAuthorizationService.getInstance(reactContext)
         val status = authService.checkAccessStatus()
         promise.resolve(status.ordinal)
     }
 
     @ReactMethod
     fun hasContactsReadAccess(promise: Promise) {
-        val authService = ContactAuthorizationService.getInstance(reactContext)
+        val authService = ContactsAuthorizationService.getInstance(reactContext)
         val hasAccess = authService.hasContactsReadAccess()
         promise.resolve(hasAccess)
     }
@@ -69,7 +67,7 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
             return
         }
 
-        val authService = ContactAuthorizationService.getInstance(reactContext)
+        val authService = ContactsAuthorizationService.getInstance(reactContext)
         val shouldShow = authService.shouldShowSettingsAlert(activity)
         promise.resolve(shouldShow)
     }
@@ -81,36 +79,26 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
             return
         }
 
-        val authService = ContactAuthorizationService.getInstance(reactContext)
+        val authService = ContactsAuthorizationService.getInstance(reactContext)
         authService.showSettingsAlertView(activity)
         promise.resolve(null)
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String>,
         grantResults: IntArray
     ): Boolean {
         if (requestCode == PERMISSION_REQUEST_CODE) {
-            val authService = ContactAuthorizationService.getInstance(reactContext)
-            val promise = pendingPromise
+            val granted = grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED
 
-            if (promise != null) {
-                authService.handlePermissionsResult(requestCode, grantResults) { status, exception ->
-                    val granted = status == ContactsAccessStatus.AUTHORIZED ||
-                                 status == ContactsAccessStatus.LIMITED_AUTHORIZED
-
-                    val response = Arguments.createMap().apply {
-                        putBoolean("granted", granted)
-                        putInt("status", status.ordinal)
-                        exception?.let { putString("error", it.message) }
-                    }
-
-                    promise.resolve(response)
-                    pendingPromise = null
-                }
-                return true
+            val response = Arguments.createMap().apply {
+                putBoolean("granted", granted)
             }
+            currentPromise?.resolve(response)
+            currentPromise = null
+            return true
         }
         return false
     }

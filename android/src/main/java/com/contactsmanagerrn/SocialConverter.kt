@@ -1,7 +1,11 @@
 package com.contactsmanagerrn
 
-import com.facebook.react.bridge.*
+import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReadableMap
+import com.facebook.react.bridge.WritableArray
+import com.facebook.react.bridge.WritableMap
 import io.contactsmanager.api.models.*
+import java.util.*
 
 /**
  * Utility class for converting between native social objects and JS objects
@@ -21,26 +25,52 @@ object SocialConverter {
     }
 
     /**
-     * Convert a PaginatedFollowList to a WritableMap for JS
+     * Convert a FollowStatusResponse to a WritableMap for JS
      */
-    fun paginatedFollowListToJS(list: PaginatedFollowList): WritableMap {
+    fun followStatusResponseToJS(response: FollowStatusResponse): WritableMap {
         return Arguments.createMap().apply {
-            putArray("items", canonicalContactsToJSArray(list.items))
-            putInt("total", list.total)
-            putInt("skip", list.skip)
-            putInt("limit", list.limit)
+            putBoolean("success", response.success)
+            putString("message", response.message)
+            putString("userId", response.userId)
+            putBoolean("isFollowing", response.isFollowing)
         }
     }
 
     /**
-     * Convert a PaginatedMutualFollowers to a WritableMap for JS
+     * Convert a PaginatedFollowList to a WritableMap for JS
      */
-    fun paginatedMutualFollowersToJS(list: PaginatedMutualFollowers): WritableMap {
+    fun paginatedFollowListToJS(response: PaginatedFollowList): WritableMap {
         return Arguments.createMap().apply {
-            putArray("items", canonicalContactsToJSArray(list.items))
-            putInt("total", list.total)
-            putInt("skip", list.skip)
-            putInt("limit", list.limit)
+            putArray("items", followRelationshipsToJSArray(response.items))
+            putInt("total", response.total)
+            putInt("skip", response.skip)
+            putInt("limit", response.limit)
+        }
+    }
+
+    /**
+     * Convert a list of FollowRelationship objects to a WritableArray for JS
+     */
+    fun followRelationshipsToJSArray(relationships: List<FollowRelationship>): WritableArray {
+        val array = Arguments.createArray()
+        relationships.forEach { relationship ->
+            array.pushMap(followRelationshipToJS(relationship))
+        }
+        return array
+    }
+
+    /**
+     * Convert a FollowRelationship to a WritableMap for JS
+     */
+    fun followRelationshipToJS(relationship: FollowRelationship): WritableMap {
+        return Arguments.createMap().apply {
+            putString("id", relationship.id)
+            putString("userId", relationship.userId)
+            putString("followerId", relationship.followerId)
+            putMap("follower", relationship.follower?.let { canonicalContactToJS(it) })
+            putMap("following", relationship.following?.let { canonicalContactToJS(it) })
+            putDouble("createdAt", relationship.createdAt?.time?.toDouble() ?: 0.0)
+            putDouble("updatedAt", relationship.updatedAt?.time?.toDouble() ?: 0.0)
         }
     }
 
@@ -63,29 +93,28 @@ object SocialConverter {
             putString("id", event.id)
             putString("title", event.title)
             putString("description", event.description)
-            putString("location", event.location)
             putString("imageUrl", event.imageUrl)
-            putDouble("startTime", event.startTime?.toDouble() ?: 0.0)
-            putDouble("endTime", event.endTime?.toDouble() ?: 0.0)
+            putDouble("startTime", event.startTime?.time?.toDouble() ?: 0.0)
+            putDouble("endTime", event.endTime?.time?.toDouble() ?: 0.0)
             putString("creatorId", event.creatorId)
-            putMap("creator", event.creator?.let { canonicalContactToJS(it) } ?: Arguments.createMap())
-            putArray("attendees", event.attendees?.let { canonicalContactsToJSArray(it) } ?: Arguments.createArray())
-            putInt("attendeeCount", event.attendeeCount ?: 0)
-            putString("status", event.status)
-            putDouble("createdAt", event.createdAt?.toDouble() ?: 0.0)
-            putDouble("updatedAt", event.updatedAt?.toDouble() ?: 0.0)
+            putMap("creator", event.creator?.let { canonicalContactToJS(it) })
+            putArray("attendees", event.attendees?.let { canonicalContactsToJSArray(it) })
+            putInt("attendeeCount", event.attendeeCount)
+            putString("status", event.status?.name)
+            putDouble("createdAt", event.createdAt?.time?.toDouble() ?: 0.0)
+            putDouble("updatedAt", event.updatedAt?.time?.toDouble() ?: 0.0)
         }
     }
 
     /**
      * Convert a PaginatedEventList to a WritableMap for JS
      */
-    fun paginatedEventListToJS(list: PaginatedEventList): WritableMap {
+    fun paginatedEventListToJS(response: PaginatedEventList): WritableMap {
         return Arguments.createMap().apply {
-            putArray("items", socialEventsToJSArray(list.items))
-            putInt("total", list.total)
-            putInt("skip", list.skip)
-            putInt("limit", list.limit)
+            putArray("items", socialEventsToJSArray(response.items))
+            putInt("total", response.total)
+            putInt("skip", response.skip)
+            putInt("limit", response.limit)
         }
     }
 
@@ -101,14 +130,33 @@ object SocialConverter {
     }
 
     /**
-     * Convert a list of CanonicalContact objects to a WritableArray for JS
+     * Convert a ReadableMap to CreateEventRequest
      */
-    fun canonicalContactsToJSArray(contacts: List<CanonicalContact>): WritableArray {
-        val array = Arguments.createArray()
-        contacts.forEach { contact ->
-            array.pushMap(canonicalContactToJS(contact))
-        }
-        return array
+    fun readableMapToCreateEventRequest(map: ReadableMap): CreateEventRequest {
+        return CreateEventRequest(
+            title = map.getString("title") ?: "",
+            description = map.getString("description"),
+            imageUrl = map.getString("imageUrl"),
+            startTime = map.getDouble("startTime").toLong().let { Date(it) },
+            endTime = map.getDouble("endTime").toLong().let { Date(it) },
+            status = map.getString("status")?.let { EventStatus.valueOf(it) } ?: EventStatus.DRAFT,
+            eventType = EventType.SOCIAL
+        )
+    }
+
+    /**
+     * Convert a ReadableMap to UpdateEventRequest
+     */
+    fun readableMapToUpdateEventRequest(map: ReadableMap): UpdateEventRequest {
+        return UpdateEventRequest(
+            title = map.getString("title"),
+            description = map.getString("description"),
+            imageUrl = map.getString("imageUrl"),
+            startTime = map.getDouble("startTime").toLong().let { Date(it) },
+            endTime = map.getDouble("endTime").toLong().let { Date(it) },
+            status = map.getString("status")?.let { EventStatus.valueOf(it) } ?: EventStatus.DRAFT,
+            eventType = EventType.SOCIAL
+        )
     }
 
     /**
@@ -124,38 +172,19 @@ object SocialConverter {
             putString("username", contact.username)
             putString("avatarUrl", contact.avatarUrl)
             putString("bio", contact.bio)
-            putDouble("createdAt", contact.createdAt?.toDouble() ?: 0.0)
-            putDouble("updatedAt", contact.updatedAt?.toDouble() ?: 0.0)
+            putDouble("createdAt", contact.createdAt?.time?.toDouble() ?: 0.0)
+            putDouble("updatedAt", contact.updatedAt?.time?.toDouble() ?: 0.0)
         }
     }
 
     /**
-     * Convert a ReadableMap to CreateEventRequest
+     * Convert a list of CanonicalContact objects to a WritableArray for JS
      */
-    fun readableMapToCreateEventRequest(map: ReadableMap): CreateEventRequest {
-        return CreateEventRequest(
-            title = map.getString("title") ?: "",
-            description = map.getString("description"),
-            location = map.getString("location"),
-            imageUrl = map.getString("imageUrl"),
-            startTime = if (map.hasKey("startTime")) map.getDouble("startTime").toLong() else null,
-            endTime = if (map.hasKey("endTime")) map.getDouble("endTime").toLong() else null,
-            status = map.getString("status")
-        )
-    }
-
-    /**
-     * Convert a ReadableMap to UpdateEventRequest
-     */
-    fun readableMapToUpdateEventRequest(map: ReadableMap): UpdateEventRequest {
-        return UpdateEventRequest(
-            title = if (map.hasKey("title")) map.getString("title") else null,
-            description = if (map.hasKey("description")) map.getString("description") else null,
-            location = if (map.hasKey("location")) map.getString("location") else null,
-            imageUrl = if (map.hasKey("imageUrl")) map.getString("imageUrl") else null,
-            startTime = if (map.hasKey("startTime")) map.getDouble("startTime").toLong() else null,
-            endTime = if (map.hasKey("endTime")) map.getDouble("endTime").toLong() else null,
-            status = if (map.hasKey("status")) map.getString("status") else null
-        )
+    fun canonicalContactsToJSArray(contacts: List<CanonicalContact>): WritableArray {
+        val array = Arguments.createArray()
+        contacts.forEach { contact ->
+            array.pushMap(canonicalContactToJS(contact))
+        }
+        return array
     }
 }

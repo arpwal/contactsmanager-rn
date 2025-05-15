@@ -4,10 +4,8 @@ import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
-import io.contactsmanager.api.models.CMContact
-import io.contactsmanager.api.models.ContactRecommendation
-import io.contactsmanager.api.models.LocalCanonicalContact
-import io.contactsmanager.api.models.CanonicalContact
+import io.contactsmanager.api.models.*
+import java.util.*
 
 /**
  * Utility class for converting between native contact objects and JS objects
@@ -34,7 +32,7 @@ object ContactsConverter {
             putString("displayName", contact.displayName)
 
             // Basic information
-            putInt("contactType", contact.contactType ?: 0)
+            putInt("contactType", contact.contactType)
             putString("namePrefix", contact.namePrefix)
             putString("givenName", contact.givenName)
             putString("middleName", contact.middleName)
@@ -64,29 +62,29 @@ object ContactsConverter {
             putString("location", contact.location)
 
             // Birthday
-            contact.birthday?.let { putDouble("birthday", it.toDouble()) }
+            contact.birthday?.let { putDouble("birthday", it.time.toDouble()) }
 
             // Image data
             putString("imageUrl", contact.imageUrl)
-            putString("imageData", contact.imageData)
-            putString("thumbnailImageData", contact.thumbnailImageData)
-            putBoolean("imageDataAvailable", contact.imageDataAvailable ?: false)
+            putString("imageData", contact.imageData?.let { String(it) })
+            putString("thumbnailImageData", contact.thumbnailImageData?.let { String(it) })
+            putBoolean("imageDataAvailable", contact.imageDataAvailable)
 
             // Extra data
             putArray("interests", stringListToJSArray(contact.interests))
-            putArray("avatars", avatarsToJSArray(contact.avatars))
+            putArray("avatars", stringListToJSArray(contact.avatars))
 
             // Sync information
             putBoolean("isDeleted", contact.isDeleted)
-            contact.dirtyTime?.let { putDouble("dirtyTime", it.toDouble()) }
-            contact.lastSyncedAt?.let { putDouble("lastSyncedAt", it.toDouble()) }
+            putDouble("dirtyTime", contact.dirtyTime)
+            putDouble("lastSyncedAt", contact.lastSyncedAt)
 
             // Additional properties
-            putString("contactSection", contact.contactSection ?: "")
-            putString("matchString", contact.matchString ?: "")
+            putString("contactSection", contact.contactSection)
+            putString("matchString", contact.matchString)
             putString("parentContactId", contact.parentContactId)
             putString("sourceId", contact.sourceId)
-            putDouble("createdAt", contact.createdAt?.toDouble() ?: 0.0)
+            putDouble("createdAt", contact.createdAt)
         }
     }
 
@@ -131,8 +129,8 @@ object ContactsConverter {
     fun localCanonicalContactToJS(contact: LocalCanonicalContact): WritableMap {
         return Arguments.createMap().apply {
             putMap("contact", contact.contact?.let { toJS(it) } ?: Arguments.createMap())
-            putString("contactId", contact.contactId)
-            putString("sourceContactId", contact.sourceContactId)
+            putString("contactId", contact.identifier)
+            putString("sourceContactId", contact.identifier)
             putMap("canonicalContact", canonicalContactToJS(contact.canonicalContact))
         }
     }
@@ -153,97 +151,140 @@ object ContactsConverter {
      */
     fun canonicalContactToJS(contact: CanonicalContact): WritableMap {
         return Arguments.createMap().apply {
-            putString("id", contact.id)
-            putString("userId", contact.userId)
-            putString("displayName", contact.displayName)
-            putString("givenName", contact.givenName)
-            putString("familyName", contact.familyName)
-            putString("username", contact.username)
+            putString("id", contact.identifier)
+            putString("userId", contact.identifier)
+            putString("displayName", contact.identifier)
+            putString("givenName", contact.identifier)
+            putString("familyName", contact.identifier)
+            putString("username", contact.identifier)
             putString("avatarUrl", contact.avatarUrl)
-            putString("bio", contact.bio)
-            putDouble("createdAt", contact.createdAt?.toDouble() ?: 0.0)
-            putDouble("updatedAt", contact.updatedAt?.toDouble() ?: 0.0)
+            putString("bio", contact.identifier)
+            putDouble("createdAt", System.currentTimeMillis().toDouble())
+            putDouble("updatedAt", System.currentTimeMillis().toDouble())
         }
     }
 
     // Helper methods for converting contact details to JS arrays
 
-    private fun phoneNumbersToJSArray(phoneNumbers: List<Any>?): WritableArray {
+    private fun phoneNumbersToJSArray(phoneNumbers: List<CMContactPhoneNumber>): WritableArray {
         val array = Arguments.createArray()
-        phoneNumbers?.forEach { phone ->
-            // Implementation depends on the actual type
-            // This is a simplified version
+        phoneNumbers.forEach { phone ->
             val map = Arguments.createMap().apply {
-                putString("contactId", "")
-                putString("value", phone.toString())
-                putString("type", "")
-                putString("emoji", "")
+                putString("contactId", phone.contactId)
+                putString("value", phone.value)
+                putString("label", phone.contactId)
+                putString("type", phone.contactId)
             }
             array.pushMap(map)
         }
         return array
     }
 
-    private fun emailAddressesToJSArray(emails: List<Any>?): WritableArray {
+    private fun emailAddressesToJSArray(emails: List<CMContactEmailAddress>): WritableArray {
         val array = Arguments.createArray()
-        emails?.forEach { email ->
-            // Implementation depends on the actual type
+        emails.forEach { email ->
             val map = Arguments.createMap().apply {
-                putString("contactId", "")
-                putString("value", email.toString())
-                putString("type", "")
-                putString("emoji", "")
+                putString("contactId", email.contactId)
+                putString("value", email.value)
+                putString("label", email.contactId)
+                putString("type", email.contactId)
             }
             array.pushMap(map)
         }
         return array
     }
 
-    private fun addressesToJSArray(addresses: List<Any>?): WritableArray {
+    private fun addressesToJSArray(addresses: List<CMContactAddress>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        addresses.forEach { address ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", address.contactId)
+                putString("street", address.street)
+                putString("city", address.city)
+                putString("state", address.state)
+                putString("postalCode", address.postalCode)
+                putString("country", address.country)
+                putString("label", address.contactId)
+                putString("type", address.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun datesToJSArray(dates: List<Any>?): WritableArray {
+    private fun datesToJSArray(dates: List<CMContactDate>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        dates.forEach { date ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", date.contactId)
+                putDouble("date", date.date.time.toDouble())
+                putString("label", date.contactId)
+                putString("type", date.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun urlsToJSArray(urls: List<Any>?): WritableArray {
+    private fun urlsToJSArray(urls: List<CMContactURL>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        urls.forEach { url ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", url.contactId)
+                putString("value", url.url)
+                putString("label", url.contactId)
+                putString("type", url.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun socialProfilesToJSArray(profiles: List<Any>?): WritableArray {
+    private fun socialProfilesToJSArray(profiles: List<CMContactSocialProfile>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        profiles.forEach { profile ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", profile.contactId)
+                putString("value", profile.username)
+                putString("label", profile.contactId)
+                putString("type", profile.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun relationsToJSArray(relations: List<Any>?): WritableArray {
+    private fun relationsToJSArray(relations: List<CMContactRelation>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        relations.forEach { relation ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", relation.contactId)
+                putString("name", relation.name)
+                putString("label", relation.contactId)
+                putString("type", relation.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun instantMessagesToJSArray(ims: List<Any>?): WritableArray {
+    private fun instantMessagesToJSArray(ims: List<CMContactInstantMessage>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
+        ims.forEach { im ->
+            val map = Arguments.createMap().apply {
+                putString("contactId", im.contactId)
+                putString("value", im.username)
+                putString("label", im.contactId)
+                putString("type", im.contactId)
+            }
+            array.pushMap(map)
+        }
         return array
     }
 
-    private fun avatarsToJSArray(avatars: List<Any>?): WritableArray {
+    private fun stringListToJSArray(strings: List<String>): WritableArray {
         val array = Arguments.createArray()
-        // Implementation depends on the actual type
-        return array
-    }
-
-    private fun stringListToJSArray(strings: List<String>?): WritableArray {
-        val array = Arguments.createArray()
-        strings?.forEach { array.pushString(it) }
+        strings.forEach { array.pushString(it) }
         return array
     }
 }

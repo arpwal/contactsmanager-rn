@@ -332,30 +332,60 @@ class RNContactService(private val reactContext: ReactApplicationContext) :
 
     // Helper methods for converting between JS and native objects
 
-    private fun readableMapToUserInfo(map: ReadableMap): CMUserInfo {
+    private fun readableMapToUserInfo(userInfo: ReadableMap): CMUserInfo {
         return CMUserInfo(
-            userId = map.getString("userId") ?: "",
-            displayName = map.getString("displayName"),
-            email = map.getString("email"),
-            phoneNumber = map.getString("phoneNumber"),
-            avatarUrl = map.getString("avatarUrl")
+            id = userInfo.getString("id") ?: "",
+            displayName = userInfo.getString("displayName") ?: "",
+            givenName = userInfo.getString("givenName"),
+            familyName = userInfo.getString("familyName"),
+            phoneNumber = userInfo.getString("phoneNumber"),
+            username = userInfo.getString("username"),
+            avatarUrl = userInfo.getString("avatarUrl"),
+            bio = userInfo.getString("bio")
         )
     }
 
-    private fun readableMapToOptions(map: ReadableMap): CMContactsManagerOptions {
-        val options = CMContactsManagerOptions()
+    private fun readableMapToOptions(options: ReadableMap): CMContactsManagerOptions {
+        val builder = CMContactsManagerOptions.Builder()
 
-        if (map.hasKey("restrictedKeysToFetch") && !map.isNull("restrictedKeysToFetch")) {
-            val restrictedKeys = map.getArray("restrictedKeysToFetch")
-            val restrictedKeysList = mutableListOf<Int>()
+        // Handle data restrictions
+        if (options.hasKey("dataRestrictions")) {
+            val restrictionsArray = options.getArray("dataRestrictions")
+            val restrictions = mutableSetOf<CMContactDataRestriction>()
 
-            for (i in 0 until restrictedKeys.size()) {
-                restrictedKeysList.add(restrictedKeys.getInt(i))
+            restrictionsArray?.let {
+                for (i in 0 until it.size()) {
+                    when (it.getInt(i)) {
+                        0 -> restrictions.add(CMContactDataRestriction.NONE)
+                        1 -> restrictions.add(CMContactDataRestriction.PHONE_NUMBERS)
+                        2 -> restrictions.add(CMContactDataRestriction.EMAIL_ADDRESSES)
+                        3 -> restrictions.add(CMContactDataRestriction.POSTAL_ADDRESSES)
+                        4 -> restrictions.add(CMContactDataRestriction.DATES)
+                        5 -> restrictions.add(CMContactDataRestriction.SOCIAL_PROFILES)
+                        6 -> restrictions.add(CMContactDataRestriction.INSTANT_MESSAGE_ADDRESSES)
+                        7 -> restrictions.add(CMContactDataRestriction.URL_ADDRESSES)
+                        8 -> restrictions.add(CMContactDataRestriction.RELATIONS)
+                        9 -> restrictions.add(CMContactDataRestriction.NOTES)
+                    }
+                }
             }
 
-            options.restrictedKeysToFetch = restrictedKeysList
+            builder.setDataRestrictions(restrictions)
         }
 
-        return options
+        // Handle other options
+        if (options.hasKey("shouldSyncDeletedContacts")) {
+            builder.setShouldSyncDeletedContacts(options.getBoolean("shouldSyncDeletedContacts"))
+        }
+
+        if (options.hasKey("shouldSyncContactImages")) {
+            builder.setShouldSyncContactImages(options.getBoolean("shouldSyncContactImages"))
+        }
+
+        if (options.hasKey("shouldSyncContactThumbnails")) {
+            builder.setShouldSyncContactThumbnails(options.getBoolean("shouldSyncContactThumbnails"))
+        }
+
+        return builder.build()
     }
 }
