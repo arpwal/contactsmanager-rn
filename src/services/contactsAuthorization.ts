@@ -44,7 +44,7 @@ export function shouldShowSettingsAlert(): Promise<boolean> {
  * @returns Promise resolving when the alert is shown
  */
 export function showSettingsAlert(): Promise<void> {
-  return RNContactsAuthorizationService.showSettingsAlert();
+  return RNContactsAuthorizationService.showSettingsAlertView();
 }
 
 // Export the service object

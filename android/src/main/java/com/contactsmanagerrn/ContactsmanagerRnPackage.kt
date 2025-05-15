@@ -10,7 +10,11 @@ class ContactsmanagerRnPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
     return listOf(
       ContactsmanagerRnModule(reactContext),
-      RNContactsAuthorizationService(reactContext)
+      RNContactsAuthorizationService(reactContext),
+      RNContactSearchService(reactContext),
+      RNRecommendationService(reactContext),
+      RNSocialService(reactContext),
+      RNContactService(reactContext)
     )
   }
 

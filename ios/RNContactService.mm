@@ -5,8 +5,8 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(initialize:(NSString *)apiKey
-                  token:(NSString *)token
                   userInfo:(NSDictionary *)userInfoDict
+                  token:(NSString *)token
                   options:(NSDictionary *)optionsDict
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
@@ -72,9 +72,15 @@ RCT_EXPORT_METHOD(initialize:(NSString *)apiKey
         }
     }
 
+    // Handle null token (empty string or NSNull from JS is treated as nil)
+    NSString *tokenToUse = nil;
+    if (token != nil && ![token isKindOfClass:[NSNull class]] && ![token isEqualToString:@""]) {
+        tokenToUse = token;
+    }
+
     // Call the CMContactService method
     [[CMContactService sharedInstance] initializeWithAPIKey:apiKey
-                                                      token:token
+                                                      token:tokenToUse
                                                    userInfo:userInfo
                                                     options:options
                                                  completion:^(BOOL success, NSError * _Nullable error) {
