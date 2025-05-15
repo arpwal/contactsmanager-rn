@@ -17,10 +17,9 @@ object SocialConverter {
      */
     fun followActionResponseToJS(response: FollowActionResponse): WritableMap {
         return Arguments.createMap().apply {
-            putBoolean("success", response.success)
-            putString("message", response.message)
-            putString("userId", response.userId)
-            putBoolean("isFollowing", response.isFollowing)
+            putBoolean("alreadyFollowing", response.alreadyFollowing ?: false)
+            putBoolean("wasFollowing", response.wasFollowing ?: false)
+            putBoolean("success", response.success ?: false)
         }
     }
 
@@ -29,9 +28,6 @@ object SocialConverter {
      */
     fun followStatusResponseToJS(response: FollowStatusResponse): WritableMap {
         return Arguments.createMap().apply {
-            putBoolean("success", response.success)
-            putString("message", response.message)
-            putString("userId", response.userId)
             putBoolean("isFollowing", response.isFollowing)
         }
     }
@@ -45,6 +41,7 @@ object SocialConverter {
             putInt("total", response.total)
             putInt("skip", response.skip)
             putInt("limit", response.limit)
+            putInt("totalCount", response.totalCount)
         }
     }
 
@@ -57,6 +54,7 @@ object SocialConverter {
             putInt("total", response.total)
             putInt("skip", response.skip)
             putInt("limit", response.limit)
+            putInt("totalCount", response.totalCount)
         }
     }
 
@@ -77,12 +75,13 @@ object SocialConverter {
     fun followRelationshipToJS(relationship: FollowRelationship): WritableMap {
         return Arguments.createMap().apply {
             putString("id", relationship.id)
-            putString("userId", relationship.userId)
             putString("followerId", relationship.followerId)
+            putString("followedId", relationship.followedId)
+            putString("userId", relationship.userId)
             putMap("follower", relationship.follower?.let { canonicalContactToJS(it) })
-            putMap("following", relationship.following?.let { canonicalContactToJS(it) })
-            putDouble("createdAt", relationship.createdAt?.time?.toDouble() ?: 0.0)
-            putDouble("updatedAt", relationship.updatedAt?.time?.toDouble() ?: 0.0)
+            putMap("followed", relationship.followed?.let { canonicalContactToJS(it) })
+            putMap("localContact", relationship.localContact?.let { contactToJS(it) })
+            putDouble("createdAt", relationship.createdAt.time.toDouble())
         }
     }
 
@@ -91,9 +90,10 @@ object SocialConverter {
      */
     fun eventActionResponseToJS(response: EventActionResponse): WritableMap {
         return Arguments.createMap().apply {
-            putBoolean("success", response.success)
-            putString("message", response.message)
             putString("eventId", response.eventId)
+            putBoolean("created", response.created ?: false)
+            putBoolean("updated", response.updated ?: false)
+            putBoolean("deleted", response.deleted ?: false)
         }
     }
 
@@ -103,18 +103,33 @@ object SocialConverter {
     fun socialEventToJS(event: SocialEvent): WritableMap {
         return Arguments.createMap().apply {
             putString("id", event.id)
+            putString("organizationId", event.organizationId)
+            putString("canonicalContactId", event.canonicalContactId)
+            putString("eventType", event.eventType)
             putString("title", event.title)
             putString("description", event.description)
-            putString("imageUrl", event.imageUrl)
+            putString("location", event.location)
             putDouble("startTime", event.startTime?.time?.toDouble() ?: 0.0)
             putDouble("endTime", event.endTime?.time?.toDouble() ?: 0.0)
-            putString("creatorId", event.creatorId)
-            putMap("creator", event.creator?.let { canonicalContactToJS(it) })
-            putArray("attendees", event.attendees?.let { canonicalContactsToJSArray(it) })
-            putInt("attendeeCount", event.attendeeCount)
-            putString("status", event.status?.name)
-            putDouble("createdAt", event.createdAt?.time?.toDouble() ?: 0.0)
-            putDouble("updatedAt", event.updatedAt?.time?.toDouble() ?: 0.0)
+            putMap("metadata", event.metadata?.let { mapToWritableMap(it) })
+            putBoolean("isPublic", event.isPublic)
+            putDouble("createdAt", event.createdAt.time.toDouble())
+            putDouble("updatedAt", event.updatedAt.time.toDouble())
+            putString("userId", event.userId)
+            putMap("createdBy", event.createdBy?.let { creatorToJS(it) })
+        }
+    }
+
+    private fun creatorToJS(creator: EventCreator): WritableMap {
+        return Arguments.createMap().apply {
+            putString("name", creator.name)
+            putString("avatarUrl", creator.avatarUrl)
+        }
+    }
+
+    private fun mapToWritableMap(map: Map<String, String>): WritableMap {
+        return Arguments.createMap().apply {
+            map.forEach { (key, value) -> putString(key, value) }
         }
     }
 
@@ -127,6 +142,7 @@ object SocialConverter {
             putInt("total", response.total)
             putInt("skip", response.skip)
             putInt("limit", response.limit)
+            putInt("totalCount", response.totalCount)
         }
     }
 
@@ -146,13 +162,14 @@ object SocialConverter {
      */
     fun readableMapToCreateEventRequest(map: ReadableMap): CreateEventRequest {
         return CreateEventRequest(
+            eventType = map.getString("eventType") ?: "",
             title = map.getString("title") ?: "",
             description = map.getString("description"),
-            imageUrl = map.getString("imageUrl"),
+            location = map.getString("location"),
             startTime = map.getDouble("startTime").toLong().let { Date(it) },
             endTime = map.getDouble("endTime").toLong().let { Date(it) },
-            status = map.getString("status")?.let { EventStatus.valueOf(it) } ?: EventStatus.DRAFT,
-            eventType = EventType.SOCIAL
+            metadata = map.getMap("metadata")?.let { readableMapToStringMap(it) },
+            isPublic = map.getBoolean("isPublic")
         )
     }
 
@@ -163,12 +180,22 @@ object SocialConverter {
         return UpdateEventRequest(
             title = map.getString("title"),
             description = map.getString("description"),
-            imageUrl = map.getString("imageUrl"),
+            location = map.getString("location"),
             startTime = map.getDouble("startTime").toLong().let { Date(it) },
             endTime = map.getDouble("endTime").toLong().let { Date(it) },
-            status = map.getString("status")?.let { EventStatus.valueOf(it) } ?: EventStatus.DRAFT,
-            eventType = EventType.SOCIAL
+            metadata = map.getMap("metadata")?.let { readableMapToStringMap(it) },
+            isPublic = if (map.hasKey("isPublic")) map.getBoolean("isPublic") else null
         )
+    }
+
+    private fun readableMapToStringMap(map: ReadableMap): Map<String, String> {
+        val result = mutableMapOf<String, String>()
+        map.toHashMap().forEach { (key, value) ->
+            if (value != null) {
+                result[key] = value.toString()
+            }
+        }
+        return result
     }
 
     /**
@@ -177,15 +204,16 @@ object SocialConverter {
     fun canonicalContactToJS(contact: CanonicalContact): WritableMap {
         return Arguments.createMap().apply {
             putString("id", contact.id)
-            putString("userId", contact.userId)
-            putString("displayName", contact.displayName)
-            putString("givenName", contact.givenName)
-            putString("familyName", contact.familyName)
-            putString("username", contact.username)
+            putString("organizationId", contact.organizationId)
+            putString("organizationUserId", contact.organizationUserId)
+            putString("email", contact.email)
+            putString("phone", contact.phone)
+            putString("fullName", contact.fullName)
             putString("avatarUrl", contact.avatarUrl)
-            putString("bio", contact.bio)
+            putBoolean("isActive", contact.isActive ?: false)
             putDouble("createdAt", contact.createdAt?.time?.toDouble() ?: 0.0)
             putDouble("updatedAt", contact.updatedAt?.time?.toDouble() ?: 0.0)
+            putMap("contactMetadata", contact.contactMetadata?.let { mapToWritableMap(it as Map<String, String>) })
         }
     }
 
@@ -198,5 +226,11 @@ object SocialConverter {
             array.pushMap(canonicalContactToJS(contact))
         }
         return array
+    }
+
+    // Helper method for converting CMContact to JS - implementation needed
+    private fun contactToJS(contact: CMContact): WritableMap {
+        // TODO: Implement CMContact to JS conversion
+        return Arguments.createMap()
     }
 }
