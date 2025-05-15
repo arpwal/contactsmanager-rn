@@ -49,6 +49,18 @@ object SocialConverter {
     }
 
     /**
+     * Convert a PaginatedFollowList to a WritableMap for mutual followers
+     */
+    fun paginatedMutualFollowersToJS(response: PaginatedMutualFollowers): WritableMap {
+        return Arguments.createMap().apply {
+            putArray("items", canonicalContactsToJSArray(response.items))
+            putInt("total", response.total)
+            putInt("skip", response.skip)
+            putInt("limit", response.limit)
+        }
+    }
+
+    /**
      * Convert a list of FollowRelationship objects to a WritableArray for JS
      */
     fun followRelationshipsToJSArray(relationships: List<FollowRelationship>): WritableArray {
