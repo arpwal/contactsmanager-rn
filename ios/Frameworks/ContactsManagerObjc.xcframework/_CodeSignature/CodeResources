@@ -6,7 +6,7 @@
 	<dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		l1z7iXTXhr4+eaVb0uD6DuapGcE=
+		cGwZY32PR2q6Yr9jIyIyb7cTOQ0=
 		</data>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
 		<data>
@@ -134,7 +134,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/ContactsManagerObjc</key>
 		<data>
-		//CWp7kzXBw6ifruHQ9A0ckEFJU=
+		AwpzXPPblHDEU4KUM+1FwwDslm4=
 		</data>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
 		<data>
@@ -267,11 +267,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l1z7iXTXhr4+eaVb0uD6DuapGcE=
+			cGwZY32PR2q6Yr9jIyIyb7cTOQ0=
 			</data>
 			<key>hash2</key>
 			<data>
-			bxYwk/pVQLzylLSdNOh+vbAod3lPjYl065RzWPyUo1U=
+			fCtQmikK3hCL3g9TMj4/Ppng5jNXNskNEOCTlJMJiWQ=
 			</data>
 		</dict>
 		<key>ios-arm64/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
@@ -619,11 +619,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			//CWp7kzXBw6ifruHQ9A0ckEFJU=
+			AwpzXPPblHDEU4KUM+1FwwDslm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			yANZCVlU/R5FNQXZpdu3F8o92ZHXflS3cn9c4d/5m3w=
+			YyXRe6fjO7EBB4IzmxlZT07UWvEvl9Zsn+oKhk5PpXE=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/ContactsManagerObjc.framework/Headers/CMAPIClient.h</key>
