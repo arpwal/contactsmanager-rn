@@ -1,9 +1,11 @@
-# @contactsmanager/rn
+# ContactsManager React Native SDK
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://github.com/arpwal/contactsmanager-rn)
 [![Documentation](https://img.shields.io/badge/docs-contactsmanager.io-blue)](https://docs.contactsmanager.io)
 [![Slack](https://img.shields.io/badge/slack-join_chat-brightgreen)](https://join.slack.com/t/contactsmanagersdk/shared_invite/zt-34as6nm2u-N7oMFvcQFoXwQvIo~ePJ1g)
+
+ContactsManager.io is a powerful contact management solution designed specifically for consumer app builders. It provides a seamless, secure, and efficient way to manage user contacts across platforms while maintaining the highest standards of privacy and security.
 
 Add powerful contact management and social features to your React Native app with minimal code.
 
