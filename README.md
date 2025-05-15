@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://github.com/arpwal/contactsmanager-rn)
+[![npm version](https://img.shields.io/npm/v/@contactsmanager/rn.svg)](https://www.npmjs.com/package/@contactsmanager/rn)
 [![Documentation](https://img.shields.io/badge/docs-contactsmanager.io-blue)](https://docs.contactsmanager.io)
 [![Slack](https://img.shields.io/badge/slack-join_chat-brightgreen)](https://join.slack.com/t/contactsmanagersdk/shared_invite/zt-34as6nm2u-N7oMFvcQFoXwQvIo~ePJ1g)
 
