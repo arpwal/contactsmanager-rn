@@ -1,16 +1,23 @@
 # @contactsmanager/rn
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://github.com/arpwal/contactsmanager-rn)
+[![Documentation](https://img.shields.io/badge/docs-contactsmanager.io-blue)](https://docs.contactsmanager.io)
+[![Slack](https://img.shields.io/badge/slack-join_chat-brightgreen)](https://join.slack.com/t/contactsmanagersdk/shared_invite/zt-34as6nm2u-N7oMFvcQFoXwQvIo~ePJ1g)
+
 Add powerful contact management and social features to your React Native app with minimal code.
+
+📚 [Full Documentation](https://docs.contactsmanager.io)
+
+🚀 [Quick Start Guide](https://docs.contactsmanager.io/quickstart)
+
+💬 [Join our Slack Community](https://join.slack.com/t/contactsmanagersdk/shared_invite/zt-34as6nm2u-N7oMFvcQFoXwQvIo~ePJ1g)
 
 ## Purpose
 
 I built ContactsManager after my experiences at companies like Facebook, Google, and startups where I witnessed firsthand the challenges of building truly engaging social products. My vision is to give developers the tools to create authentic social experiences while maintaining the highest standards of privacy and security.
 
 With ContactsManager, you can build all the engaging features that platforms like Facebook, Instagram, and LinkedIn offer, but with a crucial difference: user contact data stays on their devices only. This prevents data misuse while enabling viral growth through genuine connections. Build social features into your app with just a few lines of code, all while preserving the privacy of your users and their contacts.
-
-## Status
-
-> **BETA** - The SDK is currently in beta and is being actively updated. If you have any feature requests, please submit them at [contactsmanager.canny.io/feature-requests](https://contactsmanager.canny.io/feature-requests).
 
 ## Key Features
 
@@ -51,20 +58,19 @@ npm update @contactsmanager/rn
 3. Initialize the SDK in your app with the token
 
 ```js
-import { ContactsManager } from '@contactsmanager/rn';
+import { initialize, isInitialized } from '@contactsmanager/rn';
+
+// Check if already initialized
+const alreadyInitialized = await isInitialized();
+
+// Recommendation: Get token from your own server in production
+const TOKEN = null;
 
 // Initialize with your API key and token from server
-await ContactsManager.initialize({
-  apiKey: 'your-api-key',
-  token: 'user-auth-token',
-  userInfo: {
-    userId: 'unique-user-id',
-    email: 'user@example.com', // optional
-    phone: '+15551234567', // optional
-    fullName: 'User Name', // optional
-  },
-});
+const result = await initialize(API_KEY, userInfo, TOKEN, {});
 ```
+
+> Note: [Server Side Token Generation](https://docs.contactsmanager.io/services/token-generation#implementation-examples)
 
 ## 3. Platform Setup
 
