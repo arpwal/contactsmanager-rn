@@ -81,7 +81,7 @@ object SocialConverter {
             putMap("follower", relationship.follower?.let { canonicalContactToJS(it) })
             putMap("followed", relationship.followed?.let { canonicalContactToJS(it) })
             putMap("localContact", relationship.localContact?.let { contactToJS(it) })
-            putDouble("createdAt", relationship.createdAt.time.toDouble())
+            putDouble("createdAt", relationship.createdAt?.time?.toDouble() ?: 0.0)
         }
     }
 
@@ -113,8 +113,8 @@ object SocialConverter {
             putDouble("endTime", event.endTime?.time?.toDouble() ?: 0.0)
             putMap("metadata", event.metadata?.let { mapToWritableMap(it) })
             putBoolean("isPublic", event.isPublic)
-            putDouble("createdAt", event.createdAt.time.toDouble())
-            putDouble("updatedAt", event.updatedAt.time.toDouble())
+            putDouble("createdAt", event.createdAt?.time?.toDouble() ?: 0.0)
+            putDouble("updatedAt", event.updatedAt?.time?.toDouble() ?: 0.0)
             putString("userId", event.userId)
             putMap("createdBy", event.createdBy?.let { creatorToJS(it) })
         }
