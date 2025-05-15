@@ -39,12 +39,21 @@ export function shouldShowSettingsAlert(): Promise<boolean> {
   return RNContactsAuthorizationService.shouldShowSettingsAlert();
 }
 
+/**
+ * Show the settings alert to guide user to app settings
+ * @returns Promise resolving when the alert is shown
+ */
+export function showSettingsAlert(): Promise<void> {
+  return RNContactsAuthorizationService.showSettingsAlert();
+}
+
 // Export the service object
 export const ContactsAuthorizationService = {
   requestContactsAccess,
   checkAccessStatus,
   hasContactsReadAccess,
   shouldShowSettingsAlert,
+  showSettingsAlert,
 };
 
 // For debugging

@@ -8,7 +8,10 @@ import com.facebook.react.uimanager.ViewManager
 
 class ContactsmanagerRnPackage : ReactPackage {
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return listOf(ContactsmanagerRnModule(reactContext))
+    return listOf(
+      ContactsmanagerRnModule(reactContext),
+      RNContactsAuthorizationService(reactContext)
+    )
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
