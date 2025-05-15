@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.PermissionListener
-import io.contactsmanager.api.ContactsAuthorizationService
+import io.contactsmanager.api.ContactAuthorizationService
 
 class RNContactsAuthorizationService(private val reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext), PermissionListener {
@@ -20,7 +20,7 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
     @ReactMethod
     fun requestContactsAccess(promise: Promise) {
         currentPromise = promise
-        val service = ContactsAuthorizationService.getInstance(reactContext)
+        val service = ContactAuthorizationService.getInstance(reactContext)
 
         when {
             ContextCompat.checkSelfPermission(
@@ -41,21 +41,21 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
 
     @ReactMethod
     fun contactsAccessStatus(promise: Promise) {
-        val service = ContactsAuthorizationService.getInstance(reactContext)
-        val status = service.contactsAccessStatus()
+        val service = ContactAuthorizationService.getInstance(reactContext)
+        val status = service.checkAccessStatus()
         promise.resolve(status.ordinal)
     }
 
     @ReactMethod
     fun checkAccessStatus(promise: Promise) {
-        val authService = ContactsAuthorizationService.getInstance(reactContext)
+        val authService = ContactAuthorizationService.getInstance(reactContext)
         val status = authService.checkAccessStatus()
         promise.resolve(status.ordinal)
     }
 
     @ReactMethod
     fun hasContactsReadAccess(promise: Promise) {
-        val authService = ContactsAuthorizationService.getInstance(reactContext)
+        val authService = ContactAuthorizationService.getInstance(reactContext)
         val hasAccess = authService.hasContactsReadAccess()
         promise.resolve(hasAccess)
     }
@@ -67,7 +67,7 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
             return
         }
 
-        val authService = ContactsAuthorizationService.getInstance(reactContext)
+        val authService = ContactAuthorizationService.getInstance(reactContext)
         val shouldShow = authService.shouldShowSettingsAlert(activity)
         promise.resolve(shouldShow)
     }
@@ -79,7 +79,7 @@ class RNContactsAuthorizationService(private val reactContext: ReactApplicationC
             return
         }
 
-        val authService = ContactsAuthorizationService.getInstance(reactContext)
+        val authService = ContactAuthorizationService.getInstance(reactContext)
         authService.showSettingsAlertView(activity)
         promise.resolve(null)
     }
