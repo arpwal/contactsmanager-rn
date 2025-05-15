@@ -40,8 +40,8 @@ export function initialize(
   console.log('Initializing ContactService...');
   return RNContactService.initialize(
     apiKey,
-    token || null,
     userInfo,
+    token || null,
     options || {}
   );
 }
