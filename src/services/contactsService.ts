@@ -38,6 +38,12 @@ export function initialize(
   options?: ContactsManagerOptions
 ): Promise<{ success: boolean }> {
   console.log('Initializing ContactService...');
+
+  console.log('apiKey', apiKey);
+  console.log('userInfo', userInfo);
+  console.log('token', token);
+  console.log('options', options);
+
   return RNContactService.initialize(
     apiKey,
     userInfo,
