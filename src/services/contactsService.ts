@@ -24,19 +24,26 @@ interface ContactsManagerOptions {
 /**
  * Initialize the ContactsManager with API key, token, and user information
  * @param apiKey API key for the ContactsManager service
- * @param token Authentication token
  * @param userInfo User information for initialization
+ * @param token Authentication token (optional). If not provided, the SDK will generate a client-side token.
+ *              ⚠️ IMPORTANT: For enhanced security, we strongly recommend generating tokens server-side.
+ *              Client-side token generation is NOT recommended for production.
  * @param options Additional options for initialization
  * @returns Promise resolving to success status
  */
 export function initialize(
   apiKey: string,
-  token: string,
   userInfo: UserInfo,
+  token?: string | null,
   options?: ContactsManagerOptions
 ): Promise<{ success: boolean }> {
   console.log('Initializing ContactService...');
-  return RNContactService.initialize(apiKey, token, userInfo, options || {});
+  return RNContactService.initialize(
+    apiKey,
+    token || null,
+    userInfo,
+    options || {}
+  );
 }
 
 /**
