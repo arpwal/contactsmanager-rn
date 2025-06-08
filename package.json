@@ -1,6 +1,6 @@
 {
   "name": "@contactsmanager/rn",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Add social features into your app with a single line of code",
   "source": "./src/index.tsx",
   "main": "./lib/module/index.js",
